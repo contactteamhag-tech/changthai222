@@ -1,473 +1,1468 @@
-import React, { useMemo, useState } from "react";
-import { motion } from "framer-motion";
-import { ShoppingCart, MapPin, Phone, Clock3, Star, Flame, ChefHat, Award, Truck, Store, Plus, Minus, Instagram, ExternalLink, CheckCircle2 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+<!doctype html>
+<html lang="de-DE">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-const menu = [
-  {
-    id: 1,
-    category: "Signature",
-    name: "Gaeng Kiawwaan",
-    description: "Cremiges grünes Thai-Curry mit feiner Schärfe, Gemüse und Duftreis.",
-    price: 12.5,
-    spicy: true,
-    bestseller: true,
-  },
-  {
-    id: 2,
-    category: "Signature",
-    name: "Pad Thai",
-    description: "Gebratene Reisnudeln mit Tamarinde, Sprossen, Kräutern und Limette.",
-    price: 13.5,
-    bestseller: true,
-  },
-  {
-    id: 3,
-    category: "Signature",
-    name: "Phad Kimao",
-    description: "Würzige Thai-Nudeln im Streetfood-Stil mit Gemüse und kräftigen Aromen.",
-    price: 13.9,
-    spicy: true,
-  },
-  {
-    id: 4,
-    category: "Starter",
-    name: "Gyoza",
-    description: "Knusprig servierte Teigtaschen mit Dip.",
-    price: 6.5,
-  },
-  {
-    id: 5,
-    category: "Starter",
-    name: "Thung Thong",
-    description: "Frittierte Teigtaschen mit aromatischer Füllung.",
-    price: 5.5,
-  },
-  {
-    id: 6,
-    category: "Starter",
-    name: "Gung Tord",
-    description: "Frittierte Garnelen mit Sweet-Chili-Sauce.",
-    price: 6.0,
-  },
-  {
-    id: 7,
-    category: "Curry",
-    name: "Massaman Curry",
-    description: "Mild-würziges Curry mit Kokos, Kartoffeln und gerösteten Erdnussnoten.",
-    price: 13.9,
-  },
-  {
-    id: 8,
-    category: "Curry",
-    name: "Rotes Thai-Curry",
-    description: "Klassisch aromatisch, samtig und ausgewogen mit Gemüse und Reis.",
-    price: 12.9,
-    spicy: true,
-  },
-  {
-    id: 9,
-    category: "Wok",
-    name: "Bami Phad",
-    description: "Gebratene Eiernudeln aus dem Wok mit knackigem Gemüse.",
-    price: 12.5,
-  },
-  {
-    id: 10,
-    category: "Wok",
-    name: "Phad Sie Ew",
-    description: "Breite Reisnudeln mit dunkler Soja, Gemüse und Thai-Basilikum.",
-    price: 13.5,
-  },
-  {
-    id: 11,
-    category: "Rice",
-    name: "Khao Phad",
-    description: "Gebratener Jasminreis mit Ei, Gemüse und frischen Kräutern.",
-    price: 12.0,
-  },
-  {
-    id: 12,
-    category: "Dessert",
-    name: "Mango Sticky Rice",
-    description: "Süßer Klebreis mit Mango und Kokos.",
-    price: 6.9,
-  },
-];
+  <!--
+    Produktionshinweis:
+    - Setze CANONICAL_URL auf deine echte Domain (z.B. https://changthai.koeln/).
+    - Prüfe NAP-Konsistenz (PLZ 50939 ist hier gemäß Requirement gesetzt; einige Quellen nennen 50937).
+    - Stripe: Secret Key gehört NIE ins Frontend! Verwende /api/create-checkout-session + /api/stripe-webhook.
+  -->
+  <title>Chang Thai Köln – Authentischer Thai-Imbiss in Sülz | Online bestellen</title>
+  <meta name="description" content="Chang Thai Köln: authentische thailändische Küche – online bestellen (Abholung oder Lieferung). Berrenrather Str. 196, 50939 Köln. Tel: +49 221 299 660 93. Öffnungszeiten: Mo–Sa 11:30–22:00, So 14:00–22:00." />
 
-const aiFoodImages = [
+  <!-- Canonical: Google empfiehlt die Canonical-URL klar im HTML-Quellcode zu setzen -->
+  <link rel="canonical" href="https://DEINE-DOMAIN.example/" />
+
+  <meta name="theme-color" content="#0b0b0b" />
+
+  <!-- Open Graph (optional, aber SEO/Sharing-freundlich) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Chang Thai Köln – Online bestellen" />
+  <meta property="og:description" content="Authentische Thai-Küche in Köln-Sülz. Abholung oder Lieferung. Jetzt online bestellen." />
+  <meta property="og:locale" content="de_DE" />
+
+  <style>
+    :root{
+      /* Saitong-inspirierte Akzentfarben (Gold + sanftes Grün) */
+      --bg:#0b0b0b;
+      --surface:#121212;
+      --surface2:#171717;
+      --text:#f7f7f0;
+      --muted:#cfcfc6;
+      --border:rgba(255,255,255,.12);
+      --shadow:0 12px 30px rgba(0,0,0,.35);
+      --radius:18px;
+
+      --accent:#fdd903;
+      --accent2:#dbee53;
+
+      --max:1200px;
+      --gap:18px;
+
+      --focus: 0 0 0 3px rgba(253, 217, 3, .45), 0 0 0 6px rgba(219, 238, 83, .18);
+      --focus2: 0 0 0 3px rgba(219, 238, 83, .45), 0 0 0 6px rgba(253, 217, 3, .18);
+    }
+
+    *{box-sizing:border-box}
+    html{color-scheme:dark; scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 520px at 30% 0%, rgba(253,217,3,.12), transparent 60%),
+                  radial-gradient(900px 420px at 100% 30%, rgba(219,238,83,.08), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+
+    a{color:inherit}
+    a:hover{color:var(--accent)}
+    .skip{
+      position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+    }
+    .skip:focus{
+      left:12px; top:12px; width:auto; height:auto; padding:10px 12px;
+      background:var(--surface); border:1px solid var(--border); border-radius:12px;
+      box-shadow:var(--shadow);
+      outline:none;
+      z-index:9999;
+    }
+
+    header{
+      position:sticky; top:0; z-index:1000;
+      backdrop-filter: blur(10px);
+      background: rgba(11,11,11,.78);
+      border-bottom:1px solid var(--border);
+    }
+
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 16px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding:12px 0;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none;
+    }
+    .mark{
+      width:40px; height:40px; border-radius:14px;
+      background: radial-gradient(circle at 30% 30%, rgba(253,217,3,.95), rgba(219,238,83,.25) 55%, rgba(11,11,11,.0) 70%),
+                  #15150f;
+      border:1px solid rgba(253,217,3,.35);
+      box-shadow:0 8px 18px rgba(0,0,0,.35);
+      flex:0 0 auto;
+    }
+    .brand b{display:block; letter-spacing:.2px}
+    .brand small{display:block; color:var(--muted); font-size:12px; margin-top:2px}
+
+    nav ul{list-style:none; padding:0; margin:0; display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    nav a{
+      text-decoration:none;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid transparent;
+      color:var(--muted);
+    }
+    nav a:hover{border-color:rgba(253,217,3,.25); color:var(--text)}
+    nav a:focus-visible{outline:none; box-shadow:var(--focus)}
+
+    .ctaRow{
+      display:flex; gap:10px; align-items:center; justify-content:flex-end; flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      color:var(--text);
+      text-decoration:none;
+      cursor:pointer;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      font-weight:600;
+      white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(253,217,3,.35)}
+    .btn:active{transform: translateY(0)}
+    .btn:focus-visible{outline:none; box-shadow:var(--focus)}
+    .btn.primary{
+      border-color: rgba(253,217,3,.45);
+      background: linear-gradient(180deg, rgba(253,217,3,.22), rgba(253,217,3,.08));
+    }
+    .btn.ghost{
+      background: transparent;
+      border-color: rgba(255,255,255,.16);
+      color: var(--muted);
+    }
+
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      color:var(--muted);
+      font-size:12px;
+    }
+    .pill strong{color:var(--text); font-weight:700}
+
+    main{padding:18px 0 70px}
+    section{padding:22px 0}
+    h1,h2,h3{line-height:1.15; margin:0 0 12px}
+    h1{font-size: clamp(28px, 4vw, 48px); letter-spacing:-.6px}
+    h2{font-size: clamp(22px, 2.6vw, 30px)}
+    h3{font-size:18px}
+    p{margin:0 0 12px; color:var(--muted)}
+    .kicker{color:var(--accent); font-weight:700; letter-spacing:.12em; text-transform:uppercase; font-size:12px}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: var(--gap);
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr}
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .card .pad{padding:16px}
+    .hero{
+      overflow:hidden;
+    }
+    .heroImg{
+      width:100%;
+      border-bottom:1px solid var(--border);
+      display:block;
+    }
+    .heroInner{
+      padding:16px;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:16px;
+      align-items:start;
+    }
+    @media (max-width: 820px){
+      .heroInner{grid-template-columns:1fr}
+    }
+    .heroActions{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+
+    .facts{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    @media (max-width:600px){.facts{grid-template-columns:1fr}}
+    .fact{
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+    }
+    .fact b{display:block; font-size:13px}
+    .fact span{display:block; font-size:12px; color:var(--muted); margin-top:2px}
+
+    .menuTools{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      margin-bottom:10px;
+    }
+    .filters{
+      display:flex; gap:8px; flex-wrap:wrap;
+    }
+    .chip{
+      border-radius:999px;
+      padding:8px 10px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      cursor:pointer;
+      font-weight:600;
+    }
+    .chip[aria-pressed="true"]{
+      color: var(--text);
+      border-color: rgba(253,217,3,.35);
+      background: rgba(253,217,3,.10);
+    }
+    .chip:focus-visible{outline:none; box-shadow:var(--focus2)}
+
+    .menuGrid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:12px;
+    }
+    @media (max-width: 720px){
+      .menuGrid{grid-template-columns:1fr}
+    }
+    .item{
+      display:grid;
+      grid-template-columns: 96px 1fr;
+      gap:12px;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.20);
+    }
+    .item img{
+      width:96px; height:96px; border-radius:16px; object-fit:cover;
+      border:1px solid rgba(253,217,3,.22);
+      background:#15150f;
+    }
+    .itemTop{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+    }
+    .price{
+      font-weight:800;
+      color: var(--text);
+      letter-spacing:.2px;
+    }
+    .metaRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:6px}
+    .tag{
+      font-size:11px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      color: var(--muted);
+    }
+    .tag.hot{border-color: rgba(253,217,3,.35); color: rgba(253,217,3,.95)}
+    .tag.vegi{border-color: rgba(219,238,83,.25)}
+    .itemActions{margin-top:10px; display:flex; gap:8px; flex-wrap:wrap}
+
+    /* Cart */
+    .cartCard{
+      position:sticky; top:84px;
+    }
+    @media (max-width: 980px){
+      .cartCard{position:relative; top:auto}
+    }
+    .cartHeader{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:14px 16px;
+      border-bottom:1px solid var(--border);
+    }
+    .cartHeader h2{margin:0; font-size:18px}
+    .cartBody{padding:14px 16px}
+    .cartList{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px}
+    .cartLine{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      border-radius:16px;
+      padding:10px;
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap:10px;
+    }
+    .cartLine b{display:block; font-size:14px}
+    .cartLine small{display:block; color:var(--muted); margin-top:2px}
+    .qty{
+      display:flex; align-items:center; gap:6px;
+    }
+    .qty button{
+      width:34px; height:34px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      cursor:pointer;
+      font-weight:900;
+    }
+    .qty button:hover{border-color: rgba(253,217,3,.35)}
+    .qty button:focus-visible{outline:none; box-shadow:var(--focus)}
+    .qty span{min-width:20px; text-align:center; font-weight:800}
+
+    .totals{
+      margin-top:12px;
+      border-top:1px solid var(--border);
+      padding-top:12px;
+      color: var(--muted);
+      font-size:13px;
+    }
+    .totals .row{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding:4px 0;
+    }
+    .totals .row strong{color: var(--text)}
+    .divider{height:1px; background: var(--border); margin:10px 0}
+    .hint{font-size:12px; color: var(--muted)}
+    .hint a{text-decoration:underline}
+
+    /* Form */
+    form .field{margin:10px 0}
+    label{display:block; font-size:12px; color: var(--muted); margin:0 0 6px}
+    input, textarea, select{
+      width:100%;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+      color: var(--text);
+      outline:none;
+    }
+    input:focus-visible, textarea:focus-visible, select:focus-visible{
+      box-shadow: var(--focus);
+      border-color: rgba(253,217,3,.35);
+    }
+    textarea{min-height:84px; resize:vertical}
+    .row2{display:grid; grid-template-columns: 1fr 1fr; gap:10px}
+    @media (max-width: 520px){.row2{grid-template-columns:1fr}}
+    .radioRow{display:flex; gap:10px; flex-wrap:wrap}
+    .radio{
+      display:flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+      cursor:pointer;
+      user-select:none;
+    }
+    .radio input{width:auto; margin:0}
+    .consent{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-size:12px;
+    }
+    .consent input{width:auto; margin-top:3px}
+
+    /* Dialog */
+    dialog{
+      max-width: 720px;
+      width: calc(100% - 24px);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: 0 30px 80px rgba(0,0,0,.65);
+      padding: 0;
+    }
+    dialog::backdrop{
+      background: rgba(0,0,0,.65);
+    }
+    .dlgHead{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:14px 16px;
+      border-bottom:1px solid var(--border);
+    }
+    .dlgBody{padding:14px 16px}
+    .dlgFoot{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+      padding:14px 16px;
+      border-top:1px solid var(--border);
+    }
+
+    footer{
+      border-top:1px solid var(--border);
+      padding:22px 0;
+      color: var(--muted);
+      font-size:12px;
+    }
+    footer a{color: var(--muted)}
+    footer a:hover{color: var(--accent)}
+
+    /* Progressive enhancement / motion */
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .btn, .chip{transition:none}
+    }
+    /* Sticky header offset for anchor targets (WCAG focus not obscured, practical UX) */
+    [id]{scroll-margin-top: 96px}
+  </style>
+
+  <!-- SEO: Local Business Markup (Restaurant) -->
+  <script type="application/ld+json">
   {
-    title: "Thai Curry Signature",
-    src: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    title: "Wok Noodles Premium",
-    src: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    title: "Streetfood Bowl",
-    src: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=1200&q=80",
-  },
-];
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Chang Thai Köln",
+    "servesCuisine": ["Thai", "Thailändisch"],
+    "telephone": "+49 221 299 660 93",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Berrenrather Str. 196",
+      "postalCode": "50939",
+      "addressLocality": "Köln",
+      "addressCountry": "DE"
+    },
+    "openingHours": [
+      "Mo-Sa 11:30-22:00",
+      "Su 14:00-22:00"
+    ],
+    "priceRange": "€",
+    "sameAs": [
+      "https://www.instagram.com/changthai.koeln/"
+    ]
+  }
+  </script>
+</head>
 
-const categoryOrder = ["Alle", "Signature", "Starter", "Curry", "Wok", "Rice", "Dessert"];
+<body>
+  <a class="skip" href="#main">Zum Inhalt springen</a>
 
-export default function ChangThaiKoelnWebsite() {
-  const [activeCategory, setActiveCategory] = useState("Alle");
-  const [cart, setCart] = useState([]);
-  const [serviceType, setServiceType] = useState("Lieferung");
-  const [guest, setGuest] = useState({
-    name: "",
-    phone: "",
-    address: "",
-    note: "",
-  });
+  <header>
+    <div class="wrap">
+      <div class="topbar">
+        <a class="brand" href="#top" aria-label="Zur Startsektion">
+          <span class="mark" aria-hidden="true"></span>
+          <span>
+            <b>Chang Thai Köln</b>
+            <small>Authentische Thai-Küche in Köln-Sülz</small>
+          </span>
+        </a>
 
-  const filteredMenu = useMemo(() => {
-    if (activeCategory === "Alle") return menu;
-    return menu.filter((item) => item.category === activeCategory);
-  }, [activeCategory]);
+        <nav aria-label="Hauptnavigation">
+          <ul>
+            <li><a href="#menu">Menü</a></li>
+            <li><a href="#bestellen">Bestellen</a></li>
+            <li><a href="#zeiten">Öffnungszeiten</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+          </ul>
+        </nav>
 
-  const addToCart = (item) => {
-    setCart((prev) => {
-      const exists = prev.find((entry) => entry.id === item.id);
-      if (exists) {
-        return prev.map((entry) =>
-          entry.id === item.id ? { ...entry, qty: entry.qty + 1 } : entry
-        );
-      }
-      return [...prev, { ...item, qty: 1 }];
-    });
-  };
-
-  const changeQty = (id, delta) => {
-    setCart((prev) =>
-      prev
-        .map((item) =>
-          item.id === id ? { ...item, qty: Math.max(0, item.qty + delta) } : item
-        )
-        .filter((item) => item.qty > 0)
-    );
-  };
-
-  const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-  const deliveryFee = serviceType === "Lieferung" && cart.length > 0 ? 2.5 : 0;
-  const total = subtotal + deliveryFee;
-  const itemCount = cart.reduce((sum, item) => sum + item.qty, 0);
-
-  const whatsappMessage = encodeURIComponent(
-    [
-      "Hallo Chang Thai, ich möchte gerne bestellen:",
-      "",
-      ...cart.map((item) => `• ${item.qty}x ${item.name} – €${(item.price * item.qty).toFixed(2)}`),
-      "",
-      `Service: ${serviceType}`,
-      `Name: ${guest.name || "-"}`,
-      `Telefon: ${guest.phone || "-"}`,
-      `Adresse: ${serviceType === "Lieferung" ? guest.address || "-" : "Abholung"}`,
-      `Notiz: ${guest.note || "-"}`,
-      "",
-      `Gesamt: €${total.toFixed(2)}`,
-    ].join("\n")
-  );
-
-  const whatsappLink = `https://wa.me/4922129966093?text=${whatsappMessage}`;
-
-  return (
-    <div className="min-h-screen bg-[#0b0b0f] text-white">
-      <section className="relative overflow-hidden border-b border-white/10 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.18),transparent_30%),radial-gradient(circle_at_left,rgba(234,88,12,0.14),transparent_22%),linear-gradient(135deg,#09090b_0%,#111114_45%,#17171d_100%)]">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:44px_44px] opacity-20" />
-        <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-8 lg:grid-cols-[1.1fr_0.9fr] lg:px-10 lg:py-14">
-          <div className="flex flex-col justify-center">
-            <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
-              <Badge className="mb-5 rounded-full border border-amber-400/30 bg-amber-400/10 px-4 py-1.5 text-amber-200 hover:bg-amber-400/10">
-                Thai Streetfood • Köln Sülz • Bestellen & Abholen
-              </Badge>
-              <h1 className="max-w-3xl text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-7xl">
-                Chang Thai Köln – moderne Restaurant-Website mit Premium-Look und Bestellsystem
-              </h1>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-300 sm:text-lg">
-                Authentische Thai-Küche, starke Curry-Kompetenz, schneller Bestellfluss und ein visuelles Konzept, das Social-Media-Energie mit einer luxuriösen Food-Branding-Ästhetik verbindet.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.1 }}
-              className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
-            >
-              {[
-                { icon: MapPin, label: "Adresse", value: "Berrenrather Str. 196, 50939 Köln" },
-                { icon: Phone, label: "Telefon", value: "+49 221 299 660 93" },
-                { icon: Clock3, label: "Heute", value: "Mo–Sa 11:30–22:00 · So 14:00–22:00" },
-                { icon: Award, label: "Bekannt aus", value: "Mein Lokal, Dein Lokal / Kabel Eins" },
-              ].map((item, index) => (
-                <Card key={index} className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-                  <CardContent className="p-4">
-                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-400/15 text-amber-300">
-                      <item.icon className="h-5 w-5" />
-                    </div>
-                    <div className="text-xs uppercase tracking-[0.22em] text-zinc-400">{item.label}</div>
-                    <div className="mt-1 text-sm font-semibold leading-6 text-white">{item.value}</div>
-                  </CardContent>
-                </Card>
-              ))}
-            </motion.div>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild className="rounded-2xl bg-amber-500 px-6 py-6 text-black hover:bg-amber-400">
-                <a href="#bestellen">Jetzt bestellen</a>
-              </Button>
-              <Button asChild variant="outline" className="rounded-2xl border-white/20 bg-white/5 px-6 py-6 text-white hover:bg-white/10">
-                <a href="https://www.instagram.com/changthai.koeln/" target="_blank" rel="noreferrer">
-                  Instagram ansehen <Instagram className="ml-2 h-4 w-4" />
-                </a>
-              </Button>
-            </div>
-          </div>
-
-          <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7 }} className="grid gap-4 sm:grid-cols-2 sm:grid-rows-2">
-            <div className="sm:col-span-2 overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl shadow-amber-950/30">
-              <img src={aiFoodImages[0].src} alt={aiFoodImages[0].title} className="h-[320px] w-full object-cover" />
-            </div>
-            <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5">
-              <img src={aiFoodImages[1].src} alt={aiFoodImages[1].title} className="h-[220px] w-full object-cover" />
-            </div>
-            <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5">
-              <img src={aiFoodImages[2].src} alt={aiFoodImages[2].title} className="h-[220px] w-full object-cover" />
-            </div>
-          </motion.div>
+        <div class="ctaRow">
+          <a class="btn ghost" href="tel:+4922129966093" aria-label="Anrufen: +49 221 299 660 93">☎︎ Anrufen</a>
+          <a class="btn primary" href="#bestellen">Jetzt bestellen</a>
         </div>
-      </section>
+      </div>
+    </div>
+  </header>
 
-      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
-        <div className="grid gap-6 lg:grid-cols-3">
-          {[
-            {
-              icon: ChefHat,
-              title: "Branding mit Appetit-Effekt",
-              text: "Große Food-Visuals, cineastische Lichtstimmung und ein Premium-Look, der direkt Conversion erzeugt.",
-            },
-            {
-              icon: Flame,
-              title: "Menülogik wie im Delivery-Flow",
-              text: "Klare Kategorien, starke Signatures, intuitive Mengenanpassung und reduzierte Klickwege bis zur Bestellung.",
-            },
-            {
-              icon: Star,
-              title: "Ideal für Social & Ads",
-              text: "Die Struktur ist so gebaut, dass Reels, Instagram-Traffic und lokale Google-Suchen sauber auf Bestellungen einzahlen.",
-            },
-          ].map((feature, index) => (
-            <motion.div key={index} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.45, delay: index * 0.08 }}>
-              <Card className="h-full rounded-[2rem] border border-white/10 bg-white/[0.04] shadow-xl shadow-black/20">
-                <CardContent className="p-7">
-                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-400/15 text-amber-300">
-                    <feature.icon className="h-6 w-6" />
-                  </div>
-                  <h3 className="text-xl font-bold">{feature.title}</h3>
-                  <p className="mt-3 leading-7 text-zinc-300">{feature.text}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+  <main id="main">
+    <div class="wrap grid">
+      <section class="card hero" aria-label="Hero">
+        <img
+          class="heroImg"
+          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjkwMCIgdmlld0JveD0iMCAwIDE2MDAgOTAwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IlBsYXR6aGFsdGVyYmlsZCBmw7xyIEhlcm8tRm9vZGZvdG8iPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iYmciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMwYjBiMGIiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxYzFjMTIiLz48L2xpbmVhckdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iZ2xvdyIgY3g9IjAuMzUiIGN5PSIwLjM1IiByPSIwLjg1Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZGQ5MDMiIHN0b3Atb3BhY2l0eT0iMC4zNSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2RiZWU1MyIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjE2MDAiIGhlaWdodD0iOTAwIiBmaWxsPSJ1cmwoI2JnKSIvPjxyZWN0IHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjkwMCIgZmlsbD0idXJsKCNnbG93KSIvPjxnIG9wYWNpdHk9IjAuOTUiPjxwYXRoIGQ9Ik0yMjAgNjUwIEM0MjAgNTIwLCAxMTgwIDUyMCwgMTM4MCA2NTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZkZDkwMyIgc3Ryb2tlLW9wYWNpdHk9IjAuNDUiIHN0cm9rZS13aWR0aD0iMTgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yNjAgNjkwIEM0NjAgNTgwLCAxMTQwIDU4MCwgMTM0MCA2OTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RiZWU1MyIgc3Ryb2tlLW9wYWNpdHk9IjAuMjUiIHN0cm9rZS13aWR0aD0iMTQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxjaXJjbGUgY3g9IjgwMCIgY3k9IjU0MCIgcj0iMjEwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZGQ5MDMiIHN0cm9rZS1vcGFjaXR5PSIwLjM1IiBzdHJva2Utd2lkdGg9IjEwIi8+PC9nPjx0ZXh0IHg9IjgwIiB5PSIxMjAiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksIC1hcHBsZS1zeXN0ZW0sIFNlZ29lIFVJLCBSb2JvdG8sIEFyaWFsIiBmb250LXNpemU9IjU0IiBmaWxsPSIjZjdmN2YwIiBvcGFjaXR5PSIwLjk1Ij5DaGFuZyBUaGFpIEvDtmxuIOKAkyBIZXJvLUZvdG8gUGxhdHpoYWx0ZXI8L3RleHQ+PHRleHQgeD0iODAiIHk9IjE4MiIgZm9udC1mYW1pbHk9InN5c3RlbS11aSwgLWFwcGxlLXN5c3RlbSwgU2Vnb2UgVUksIFJvYm90bywgQXJpYWwiIGZvbnQtc2l6ZT0iMjYiIGZpbGw9IiNjZmNmYzYiIG9wYWNpdHk9IjAuOSI+RXJzZXR6ZSBkaWVzZXMgQmlsZCBkdXJjaCBlaW4gS0ktRm9vZGZvdG8gKDE2Ojkg4oCiIDE2MDDDlzkwMCk8L3RleHQ+PC9zdmc+"
+          alt="Platzhalterbild: Hero-Foto – durch KI-Foodfoto ersetzen"
+          loading="eager" />
 
-      <section className="border-y border-white/10 bg-white/[0.03]">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <div className="text-sm uppercase tracking-[0.26em] text-amber-300">Speisekarte</div>
-              <h2 className="mt-2 text-3xl font-black sm:text-4xl">Modernes Online-Bestellsystem für Chang Thai</h2>
-            </div>
-            <div className="text-sm text-zinc-400">Frontend-Demo mit Warenkorb, Abholung/Lieferung und WhatsApp-Checkout</div>
-          </div>
-
-          <div className="mt-8">
-            <Tabs value={activeCategory} onValueChange={setActiveCategory}>
-              <TabsList className="flex h-auto w-full flex-wrap justify-start gap-2 bg-transparent p-0">
-                {categoryOrder.map((cat) => (
-                  <TabsTrigger key={cat} value={cat} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-zinc-200 data-[state=active]:border-amber-400/40 data-[state=active]:bg-amber-400/15 data-[state=active]:text-amber-100">
-                    {cat}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
-          </div>
-
-          <div id="bestellen" className="mt-8 grid gap-8 xl:grid-cols-[1.1fr_0.9fr]">
-            <div className="grid gap-4 md:grid-cols-2">
-              {filteredMenu.map((item) => (
-                <motion.div key={item.id} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.35 }}>
-                  <Card className="h-full rounded-[2rem] border border-white/10 bg-[#111117] shadow-lg shadow-black/20">
-                    <CardContent className="flex h-full flex-col p-6">
-                      <div className="flex flex-wrap gap-2">
-                        <Badge className="rounded-full bg-white/8 text-zinc-200 hover:bg-white/8">{item.category}</Badge>
-                        {item.bestseller && <Badge className="rounded-full bg-amber-400/15 text-amber-200 hover:bg-amber-400/15">Bestseller</Badge>}
-                        {item.spicy && <Badge className="rounded-full bg-orange-500/15 text-orange-200 hover:bg-orange-500/15">Scharf</Badge>}
-                      </div>
-                      <h3 className="mt-4 text-2xl font-bold">{item.name}</h3>
-                      <p className="mt-3 flex-1 leading-7 text-zinc-300">{item.description}</p>
-                      <div className="mt-6 flex items-center justify-between">
-                        <div className="text-xl font-black text-amber-300">€ {item.price.toFixed(2)}</div>
-                        <Button onClick={() => addToCart(item)} className="rounded-2xl bg-white text-black hover:bg-zinc-200">
-                          Hinzufügen <Plus className="ml-2 h-4 w-4" />
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-
-            <div>
-              <Card className="sticky top-6 rounded-[2rem] border border-amber-400/20 bg-[linear-gradient(180deg,rgba(245,158,11,0.09),rgba(255,255,255,0.04))] shadow-2xl shadow-amber-950/20">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-sm uppercase tracking-[0.22em] text-amber-300">Warenkorb</div>
-                      <h3 className="mt-2 text-2xl font-black">Deine Bestellung</h3>
-                    </div>
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-black/30 text-amber-300">
-                      <ShoppingCart className="h-5 w-5" />
-                    </div>
-                  </div>
-
-                  <div className="mt-6 grid grid-cols-2 gap-3">
-                    <Button type="button" onClick={() => setServiceType("Lieferung")} className={`rounded-2xl py-6 ${serviceType === "Lieferung" ? "bg-amber-500 text-black hover:bg-amber-400" : "bg-white/5 text-white hover:bg-white/10"}`}>
-                      <Truck className="mr-2 h-4 w-4" /> Lieferung
-                    </Button>
-                    <Button type="button" onClick={() => setServiceType("Abholung")} className={`rounded-2xl py-6 ${serviceType === "Abholung" ? "bg-amber-500 text-black hover:bg-amber-400" : "bg-white/5 text-white hover:bg-white/10"}`}>
-                      <Store className="mr-2 h-4 w-4" /> Abholung
-                    </Button>
-                  </div>
-
-                  <div className="mt-6 space-y-3">
-                    {cart.length === 0 ? (
-                      <div className="rounded-2xl border border-dashed border-white/15 bg-black/20 p-5 text-sm leading-7 text-zinc-400">
-                        Noch keine Gerichte im Warenkorb. Wähle links Produkte aus dem Menü aus.
-                      </div>
-                    ) : (
-                      cart.map((item) => (
-                        <div key={item.id} className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                          <div className="flex items-start justify-between gap-4">
-                            <div>
-                              <div className="font-semibold text-white">{item.name}</div>
-                              <div className="text-sm text-zinc-400">€ {(item.price * item.qty).toFixed(2)}</div>
-                            </div>
-                            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 p-1">
-                              <button onClick={() => changeQty(item.id, -1)} className="rounded-full p-1 text-zinc-300 hover:bg-white/10"><Minus className="h-4 w-4" /></button>
-                              <span className="min-w-[24px] text-center text-sm font-bold">{item.qty}</span>
-                              <button onClick={() => changeQty(item.id, 1)} className="rounded-full p-1 text-zinc-300 hover:bg-white/10"><Plus className="h-4 w-4" /></button>
-                            </div>
-                          </div>
-                        </div>
-                      ))
-                    )}
-                  </div>
-
-                  <div className="mt-6 space-y-3">
-                    <Input placeholder="Name" value={guest.name} onChange={(e) => setGuest({ ...guest, name: e.target.value })} className="h-12 rounded-2xl border-white/10 bg-black/25 text-white placeholder:text-zinc-500" />
-                    <Input placeholder="Telefon" value={guest.phone} onChange={(e) => setGuest({ ...guest, phone: e.target.value })} className="h-12 rounded-2xl border-white/10 bg-black/25 text-white placeholder:text-zinc-500" />
-                    {serviceType === "Lieferung" && (
-                      <Input placeholder="Lieferadresse" value={guest.address} onChange={(e) => setGuest({ ...guest, address: e.target.value })} className="h-12 rounded-2xl border-white/10 bg-black/25 text-white placeholder:text-zinc-500" />
-                    )}
-                    <Textarea placeholder="Extra Wünsche / Hinweise" value={guest.note} onChange={(e) => setGuest({ ...guest, note: e.target.value })} className="min-h-[110px] rounded-2xl border-white/10 bg-black/25 text-white placeholder:text-zinc-500" />
-                  </div>
-
-                  <div className="mt-6 rounded-[1.5rem] border border-white/10 bg-black/25 p-4 text-sm">
-                    <div className="flex items-center justify-between py-1 text-zinc-300"><span>Artikel</span><span>{itemCount}</span></div>
-                    <div className="flex items-center justify-between py-1 text-zinc-300"><span>Zwischensumme</span><span>€ {subtotal.toFixed(2)}</span></div>
-                    <div className="flex items-center justify-between py-1 text-zinc-300"><span>Liefergebühr</span><span>€ {deliveryFee.toFixed(2)}</span></div>
-                    <div className="mt-2 flex items-center justify-between border-t border-white/10 pt-3 text-base font-black text-white"><span>Gesamt</span><span>€ {total.toFixed(2)}</span></div>
-                  </div>
-
-                  <div className="mt-6 grid gap-3">
-                    <Button asChild disabled={cart.length === 0} className="h-14 rounded-2xl bg-amber-500 text-base font-bold text-black hover:bg-amber-400 disabled:cursor-not-allowed disabled:opacity-50">
-                      <a href={whatsappLink} target="_blank" rel="noreferrer">Bestellung per WhatsApp senden</a>
-                    </Button>
-                    <Button variant="outline" className="h-14 rounded-2xl border-white/15 bg-white/5 text-white hover:bg-white/10">
-                      Online-Zahlung / Lieferando API später integrierbar
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
-        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+        <div class="heroInner">
           <div>
-            <div className="text-sm uppercase tracking-[0.26em] text-amber-300">Warum dieses Konzept funktioniert</div>
-            <h2 className="mt-2 text-3xl font-black sm:text-4xl">Eine Website, die nicht nur gut aussieht, sondern Bestellungen zieht</h2>
-            <div className="mt-6 space-y-4 text-zinc-300">
-              <p>
-                Das Design setzt auf starke Kontraste, warme Gold-/Chili-Akzente und eine Restaurant-Dramatik, die Premium-Qualität mit Streetfood-Schnelligkeit kombiniert.
-              </p>
-              <p>
-                Der Aufbau ist conversion-orientiert: Hero mit klarer Value Proposition, Social Proof, Menü als interaktiver Katalog und ein direkt integrierter Warenkorb statt eines losgelösten Formulars.
-              </p>
-              <p>
-                Für den Live-Betrieb lässt sich dieses Frontend sehr sauber an WooCommerce, Stripe, SumUp, Shopify Lite oder eine Liefer-/Pickup-API anbinden.
-              </p>
+            <div class="kicker">Frisch · Schnell · Authentisch</div>
+            <h1>Thai-Küche in Köln-Sülz – ohne Chi-Chi, dafür mit Geschmack.</h1>
+            <p>
+              Bestelle bequem online zur <strong>Abholung</strong> oder <strong>Lieferung</strong>.
+              Wir kochen frisch – du entscheidest die Schärfe.
+            </p>
+
+            <div class="heroActions">
+              <a class="btn primary" href="#menu">Menü ansehen</a>
+              <a class="btn" href="#bestellen">Zum Warenkorb & Checkout</a>
+              <a class="btn ghost" href="#tv">Bekannt aus TV</a>
             </div>
+
+            <div class="facts" role="list" aria-label="Kurzinfos">
+              <div class="fact" role="listitem">
+                <b>Adresse</b>
+                <span>Berrenrather Str. 196, 50939 Köln</span>
+              </div>
+              <div class="fact" role="listitem">
+                <b>Telefon</b>
+                <span><a href="tel:+4922129966093">+49 221 299 660 93</a></span>
+              </div>
+              <div class="fact" role="listitem">
+                <b>Öffnungszeiten</b>
+                <span>Mo–Sa 11:30–22:00 · So 14:00–22:00</span>
+              </div>
+              <div class="fact" role="listitem">
+                <b>Instagram</b>
+                <span>@changthai.koeln (Link unten im Footer)</span>
+              </div>
+            </div>
+
+            <p class="hint" style="margin-top:10px">
+              Hinweis: Diese Seite funktioniert ohne JavaScript als Informationsseite.
+              Für den Warenkorb und Online-Zahlung ist JavaScript nötig.
+            </p>
+            <noscript>
+              <p class="hint"><strong>JavaScript ist deaktiviert.</strong> Du kannst trotzdem anrufen oder per WhatsApp bestellen (siehe „Bestellen“).</p>
+            </noscript>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
-            {[
-              "Mobile First für lokale Google- und Instagram-Trafficspitzen",
-              "Schneller Bestellfluss mit wenig Reibung",
-              "Premium-Look statt klassischer Imbiss-Optik",
-              "Ideal für Reels, Ads und QR-Code-Kampagnen",
-              "Menü jederzeit erweiterbar",
-              "Später mit echter Online-Zahlung skalierbar",
-            ].map((item, index) => (
-              <Card key={index} className="rounded-[1.75rem] border border-white/10 bg-white/[0.04]">
-                <CardContent className="flex items-start gap-3 p-5">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 text-amber-300" />
-                  <div className="leading-7 text-zinc-200">{item}</div>
-                </CardContent>
-              </Card>
-            ))}
+          <div class="card" style="background:rgba(0,0,0,.22); border-color:rgba(255,255,255,.12)">
+            <div class="pad">
+              <h2 style="margin:0 0 8px">Schnell bestellen</h2>
+              <p>
+                1) Gericht wählen<br />
+                2) Modifikatoren (Größe/Extras/Schärfe)<br />
+                3) Lieferung oder Abholung<br />
+                4) Bezahlen (Stripe) oder WhatsApp
+              </p>
+              <div class="divider"></div>
+              <div class="pill" title="Defaults – bitte im Code anpassen">
+                <strong>Defaults:</strong> MwSt 7% · Lieferung 2,50 €
+              </div>
+              <p class="hint" style="margin-top:10px">
+                Entwickler: Delivery Fee, Mindestbestellwert, Steuersatz und Menüpreise sind in <code>CONFIG</code> konfigurierbar.
+              </p>
+              <a class="btn primary" href="#bestellen" style="width:100%; margin-top:8px">Jetzt starten</a>
+            </div>
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-white/10 bg-black/40">
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-10 lg:grid-cols-4 lg:px-10">
-          <div className="lg:col-span-2">
-            <div className="text-2xl font-black tracking-tight">Chang Thai Köln</div>
-            <p className="mt-3 max-w-xl leading-7 text-zinc-400">
-              Moderne Konzept-Website mit Bestellsystem, Social-Proof-Struktur und hochwertigem Food-Fokus für einen starken lokalen Auftritt in Köln.
+      <aside class="card cartCard" aria-label="Warenkorb">
+        <div class="cartHeader">
+          <h2>Warenkorb</h2>
+          <button class="btn ghost" type="button" id="clearCartBtn" title="Warenkorb leeren">Leeren</button>
+        </div>
+
+        <div class="cartBody">
+          <ul class="cartList" id="cartItems" aria-live="polite"></ul>
+
+          <div class="totals" aria-label="Summen">
+            <div class="row"><span>Zwischensumme</span><strong id="subtotal">0,00 €</strong></div>
+            <div class="row"><span>MwSt (Schätzung)</span><strong id="tax">0,00 €</strong></div>
+            <div class="row"><span>Liefergebühr</span><strong id="deliveryFee">0,00 €</strong></div>
+            <div class="divider"></div>
+            <div class="row" style="font-size:14px"><span>Gesamt</span><strong id="total">0,00 €</strong></div>
+            <p class="hint" id="minOrderHint" style="margin:8px 0 0">
+              Lieferung: Mindestbestellwert kann gelten (siehe Einstellung).
             </p>
           </div>
-          <div>
-            <div className="font-semibold text-white">Kontakt</div>
-            <div className="mt-3 space-y-2 text-zinc-400">
-              <div>Berrenrather Str. 196, 50939 Köln</div>
-              <div>+49 221 299 660 93</div>
-              <div>info@changthai.koeln</div>
-            </div>
-          </div>
-          <div>
-            <div className="font-semibold text-white">Links</div>
-            <div className="mt-3 space-y-2 text-zinc-400">
-              <a className="flex items-center gap-2 hover:text-white" href="https://changthai.koeln/" target="_blank" rel="noreferrer">Offizielle Website <ExternalLink className="h-4 w-4" /></a>
-              <a className="flex items-center gap-2 hover:text-white" href="https://changthai.koeln/shop/" target="_blank" rel="noreferrer">Shop / Bestellung <ExternalLink className="h-4 w-4" /></a>
-              <a className="flex items-center gap-2 hover:text-white" href="https://www.instagram.com/changthai.koeln/" target="_blank" rel="noreferrer">Instagram <Instagram className="h-4 w-4" /></a>
-            </div>
+
+          <div class="divider"></div>
+
+          <div class="hint">
+            <strong>Wichtig:</strong> Final verbindlich ist der Betrag im Stripe Checkout.
+            Das Backend muss Preise serverseitig verifizieren.
           </div>
         </div>
-      </footer>
+      </aside>
     </div>
-  );
-}
+
+    <div class="wrap">
+      <section id="menu" aria-label="Menü">
+        <div class="menuTools">
+          <div>
+            <div class="kicker">Menü</div>
+            <h2>Menü & Kategorien</h2>
+            <p>
+              Beispielauswahl (bitte mit eurer Speisekarte final abgleichen). Alle Preise inkl. MwSt. – Lieferkosten ggf. extra.
+            </p>
+          </div>
+
+          <div class="filters" role="group" aria-label="Kategorie-Filter">
+            <button class="chip" type="button" data-filter="all" aria-pressed="true">Alle</button>
+            <button class="chip" type="button" data-filter="vorspeisen" aria-pressed="false">Vorspeisen</button>
+            <button class="chip" type="button" data-filter="salate" aria-pressed="false">Salate</button>
+            <button class="chip" type="button" data-filter="curry" aria-pressed="false">Curry (mit Reis)</button>
+            <button class="chip" type="button" data-filter="wok" aria-pressed="false">Wok & Nudeln</button>
+            <button class="chip" type="button" data-filter="getraenke" aria-pressed="false">Getränke</button>
+          </div>
+        </div>
+
+        <div class="menuGrid" id="menuGrid">
+          <!-- Platzhalterbild 1:1 -->
+          <!-- Ersetze src durch echte KI-Foodbilder (z.B. WebP/AVIF) -->
+          <article class="item" data-category="vorspeisen" data-sku="sate-gai" data-name="Sate Gai" data-price="650" data-tags="hot">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iODAwIiB2aWV3Qm94PSIwIDAgODAwIDgwMCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJQbGF0emhhbHRlcmJpbGQgZsO8ciBGb29kLUZvdG8iPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzBmMGYwZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzJhMmExYSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJhIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmRkOTAzIiBzdG9wLW9wYWNpdHk9IjAuOTUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkYmVlNTMiIHN0b3Atb3BhY2l0eT0iMC4yNSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iODAwIiBmaWxsPSJ1cmwoI2cpIi8+PGNpcmNsZSBjeD0iNDAwIiBjeT0iNDIwIiByPSIyNTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNhKSIgc3Ryb2tlLXdpZHRoPSIxOCIvPjxjaXJjbGUgY3g9IjQwMCIgY3k9IjQyMCIgcj0iMTcwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZGQ5MDMiIHN0cm9rZS1vcGFjaXR5PSIwLjM1IiBzdHJva2Utd2lkdGg9IjEwIi8+PHBhdGggZD0iTTE5MCAyNjAgQzI4MCAxODAsIDUyMCAxODAsIDYxMCAyNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RiZWU1MyIgc3Ryb2tlLW9wYWNpdHk9IjAuNDUiIHN0cm9rZS13aWR0aD0iMTAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yMjAgMjkwIEMzMDAgMjIwLCA1MDAgMjIwLCA1ODAgMjkwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZGQ5MDMiIHN0cm9rZS1vcGFjaXR5PSIwLjM1IiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik01MjAgMTcwIEw3MTAgMzYwIiBzdHJva2U9IiNmZGQ5MDMiIHN0cm9rZS1vcGFjaXR5PSIwLjU1IiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNNTYwIDE0MCBMNzQwIDMyMCIgc3Ryb2tlPSIjZGJlZTUzIiBzdHJva2Utb3BhY2l0eT0iMC4zNSIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHRleHQgeD0iNTAlIiB5PSI4NyUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksIC1hcHBsZS1zeXN0ZW0sIFNlZ29lIFVJLCBSb2JvdG8sIEFyaWFsIiBmb250LXNpemU9IjI4IiBmaWxsPSIjZjdmN2YwIiBvcGFjaXR5PSIwLjkiPktJLUZvb2RiaWxkIGhpZXIgZXJzZXR6ZW48L3RleHQ+PHRleHQgeD0iNTAlIiB5PSI5MiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksIC1hcHBsZS1zeXN0ZW0sIFNlZ29lIFVJLCBSb2JvdG8sIEFyaWFsIiBmb250LXNpemU9IjE4IiBmaWxsPSIjY2ZjZmM2IiBvcGFjaXR5PSIwLjgiPigxOjEg4oCiIDgwMMO3ODAwKTwvdGV4dD48L3N2Zz4=" alt="Platzhalter für Food-Foto – Sate Gai" loading="lazy" />
+            <div>
+              <div class="itemTop">
+                <div>
+                  <h3 style="margin:0">Sate Gai</h3>
+                  <p style="margin:6px 0 0">Hähnchenspieße mit Erdnusssauce.</p>
+                </div>
+                <div class="price">6,50 €</div>
+              </div>
+              <div class="metaRow" aria-label="Tags">
+                <span class="tag hot">scharf möglich</span>
+              </div>
+              <div class="itemActions">
+                <button class="btn primary" type="button" data-action="customize">In den Warenkorb</button>
+                <button class="btn ghost" type="button" data-action="details">Details</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="item" data-category="salate" data-sku="som-tam" data-name="Som Tam Thai" data-price="700" data-tags="hot,vegi">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iODAwIiB2aWV3Qm94PSIwIDAgODAwIDgwMCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJQbGF0emhhbHRlcmJpbGQgZsO8ciBGb29kLUZvdG8iPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzBmMGYwZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzJhMmExYSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJhIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmRkOTAzIiBzdG9wLW9wYWNpdHk9IjAuOTUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkYmVlNTMiIHN0b3Atb3BhY2l0eT0iMC4yNSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iODAwIiBmaWxsPSJ1cmwoI2cpIi8+PGNpcmNsZSBjeD0iNDAwIiBjeT0iNDIwIiByPSIyNTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNhKSIgc3Ryb2tlLXdpZHRoPSIxOCIvPjxjaXJjbGUgY3g9IjQwMCIgY3k9IjQyMCIgcj0iMTcwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZGQ5MDMiIHN0cm9rZS1vcGFjaXR5PSIwLjM1IiBzdHJva2Utd2lkdGg9IjEwIi8+PHBhdGggZD0iTTE5MCAyNjAgQzI4MCAxODAsIDUyMCAxODAsIDYxMCAyNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RiZWU1MyIgc3Ryb2tlLW9wYWNpdHk9IjAuNDUiIHN0cm9rZS13aWR0aD0iMTAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yMjAgMjkwIEMzMDAgMjIwLCA1MDAgMjIwLCA1ODAgMjkwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZGQ5MDMiIHN0cm9rZS1vcGFjaXR5PSIwLjM1IiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik01MjAgMTcwIEw3MTAgMzYwIiBzdHJva2U9IiNmZGQ5MDMiIHN0cm9rZS1vcGFjaXR5PSIwLjU1IiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNNTYwIDE0MCBMNzQwIDMyMCIgc3Ryb2tlPSIjZGJlZTUzIiBzdHJva2Utb3BhY2l0eT0iMC4zNSIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHRleHQgeD0iNTAlIiB5PSI4NyUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksIC1hcHBsZS1zeXN0ZW0sIFNlZ29lIFVJLCBSb2JvdG8sIEFyaWFsIiBmb250LXNpemU9IjI4IiBmaWxsPSIjZjdmN2YwIiBvcGFjaXR5PSIwLjkiPktJLUZvb2RiaWxkIGhpZXIgZXJzZXR6ZW48L3RleHQ+PHRleHQgeD0iNTAlIiB5PSI5MiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksIC1hcHBsZS1zeXN0ZW0sIFNlZ29lIFVJLCBSb2JvdG8sIEFyaWFsIiBmb250LXNpemU9IjE4IiBmaWxsPSIjY2ZjZmM2IiBvcGFjaXR5PSIwLjgiPigxOjEg4oCiIDgwMMO3ODAwKTwvdGV4dD48L3N2Zz4=" alt="Platzhalter für Food-Foto – Som Tam Thai" loading="lazy" />
+            <div>
+              <div class="itemTop">
+                <div>
+                  <h3 style="margin:0">Som Tam Thai</h3>
+                  <p style="margin:6px 0 0">Grüner Papayasalat mit Möhren & Erdnüssen.</p>
+                </div>
+                <div class="price">7,00 €</div>
+              </div>
+              <div class="metaRow">
+                <span class="tag hot">scharf</span>
+                <span class="tag vegi">vegetarisch</span>
+              </div>
+              <div class="itemActions">
+                <button class="btn primary" type="button" data-action="customize">In den Warenkorb</button>
+                <button class="btn ghost" type="button" data-action="details">Details</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="item" data-category="curry" data-sku="gaeng-kiaw-waan" data-name="Gaeng Kiawwaan" data-price="1050" data-tags="hot">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iODAwIiB2aWV3Qm94PSIwIDAgODAwIDgwMCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJQbGF0emhhbHRlcmJpbGQgZsO8ciBGb29kLUZvdG8iPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzBmMGYwZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzJhMmExYSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJhIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmRkOTAzIiBzdG9wLW9wYWNpdHk9IjAuOTUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkYmVlNTMiIHN0b3Atb3BhY2l0eT0iMC4yNSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iODAwIiBmaWxsPSJ1cmwoI2cpIi8+PGNpcmNsZSBjeD0iNDAwIiBjeT0iNDIwIiByPSIyNTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNhKSIgc3Ryb2tlLXdpZHRoPSIxOCIvPjxjaXJjbGUgY3g9IjQwMCIgY3k9IjQyMCIgcj0iMTcwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZGQ5MDMiIHN0cm9rZS1vcGFjaXR5PSIwLjM1IiBzdHJva2Utd2lkdGg9IjEwIi8+PHBhdGggZD0iTTE5MCAyNjAgQzI4MCAxODAsIDUyMCAxODAsIDYxMCAyNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RiZWU1MyIgc3Ryb2tlLW9wYWNpdHk9IjAuNDUiIHN0cm9rZS13aWR0aD0iMTAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yMjAgMjkwIEMzMDAgMjIwLCA1MDAgMjIwLCA1ODAgMjkwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZGQ5MDMiIHN0cm9rZS1vcGFjaXR5PSIwLjM1IiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik01MjAgMTcwIEw3MTAgMzYwIiBzdHJva2U9IiNmZGQ5MDMiIHN0cm9rZS1vcGFjaXR5PSIwLjU1IiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNNTYwIDE0MCBMNzQwIDMyMCIgc3Ryb2tlPSIjZGJlZTUzIiBzdHJva2Utb3BhY2l0eT0iMC4zNSIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHRleHQgeD0iNTAlIiB5PSI4NyUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksIC1hcHBsZS1zeXN0ZW0sIFNlZ29lIFVJLCBSb2JvdG8sIEFyaWFsIiBmb250LXNpemU9IjI4IiBmaWxsPSIjZjdmN2YwIiBvcGFjaXR5PSIwLjkiPktJLUZvb2RiaWxkIGhpZXIgZXJzZXR6ZW48L3RleHQ+PHRleHQgeD0iNTAlIiB5PSI5MiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksIC1hcHBsZS1zeXN0ZW0sIFNlZ29lIFVJLCBSb2JvdG8sIEFyaWFsIiBmb250LXNpemU9IjE4IiBmaWxsPSIjY2ZjZmM2IiBvcGFjaXR5PSIwLjgiPigxOjEg4oCiIDgwMMO3ODAwKTwvdGV4dD48L3N2Zz4=" alt="Platzhalter für Food-Foto – Gaeng Kiawwaan" loading="lazy" />
+            <div>
+              <div class="itemTop">
+                <div>
+                  <h3 style="margin:0">Gaeng Kiawwaan</h3>
+                  <p style="margin:6px 0 0">Grünes Curry mit Kokosmilch & Gemüse. (Basispreis)</p>
+                </div>
+                <div class="price">10,50 €</div>
+              </div>
+              <div class="metaRow">
+                <span class="tag hot">scharf möglich</span>
+              </div>
+              <div class="itemActions">
+                <button class="btn primary" type="button" data-action="customize">In den Warenkorb</button>
+                <button class="btn ghost" type="button" data-action="details">Details</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="item" data-category="wok" data-sku="pad-thai" data-name="Pad Thai" data-price="1050" data-tags="">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iODAwIiB2aWV3Qm94PSIwIDAgODAwIDgwMCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJQbGF0emhhbHRlcmJpbGQgZsO8ciBGb29kLUZvdG8iPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzBmMGYwZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzJhMmExYSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJhIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmRkOTAzIiBzdG9wLW9wYWNpdHk9IjAuOTUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNkYmVlNTMiIHN0b3Atb3BhY2l0eT0iMC4yNSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iODAwIiBmaWxsPSJ1cmwoI2cpIi8+PGNpcmNsZSBjeD0iNDAwIiBjeT0iNDIwIiByPSIyNTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNhKSIgc3Ryb2tlLXdpZHRoPSIxOCIvPjxjaXJjbGUgY3g9IjQwMCIgY3k9IjQyMCIgcj0iMTcwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZGQ5MDMiIHN0cm9rZS1vcGFjaXR5PSIwLjM1IiBzdHJva2Utd2lkdGg9IjEwIi8+PHBhdGggZD0iTTE5MCAyNjAgQzI4MCAxODAsIDUyMCAxODAsIDYxMCAyNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RiZWU1MyIgc3Ryb2tlLW9wYWNpdHk9IjAuNDUiIHN0cm9rZS13aWR0aD0iMTAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yMjAgMjkwIEMzMDAgMjIwLCA1MDAgMjIwLCA1ODAgMjkwIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZGQ5MDMiIHN0cm9rZS1vcGFjaXR5PSIwLjM1IiBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik01MjAgMTcwIEw3MTAgMzYwIiBzdHJva2U9IiNmZGQ5MDMiIHN0cm9rZS1vcGFjaXR5PSIwLjU1IiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNNTYwIDE0MCBMNzQwIDMyMCIgc3Ryb2tlPSIjZGJlZTUzIiBzdHJva2Utb3BhY2l0eT0iMC4zNSIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHRleHQgeD0iNTAlIiB5PSI4NyUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksIC1hcHBsZS1zeXN0ZW0sIFNlZ29lIFVJLCBSb2JvdG8sIEFyaWFsIiBmb250LXNpemU9IjI4IiBmaWxsPSIjZjdmN2YwIiBvcGFjaXR5PSIwLjkiPktJLUZvb2RiaWxkIGhpZXIgZXJzZXR6ZW48L3RleHQ+PHRleHQgeD0iNTAlIiB5PSI5MiUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksIC1hcHBsZS1zeXN0ZW0sIFNlZ29lIFVJLCBSb2JvdG8sIEFyaWFsIiBmb250LXNpemU9IjE4IiBmaWxsPSIjY2ZjZmM2IiBvcGFjaXR5PSIwLjgiPigxOjEg4oCiIDgwMMO3ODAwKTwvdGV4dD48L3N2Zz4=" alt="Platzhalter für Food-Foto – Pad Thai" loading="lazy" />
+            <div>
+              <div class="itemTop">
+                <div>
+                  <h3 style="margin:0">Pad Thai</h3>
+                  <p style="margin:6px 0 0">Gebratene Reisnudeln mit Erdnüssen & Sprossen. (Basispreis)</p>
+                </div>
+                <div class="price">10,50 €</div>
+              </div>
+              <div class="metaRow">
+                <span class="tag">klassiker</span>
+              </div>
+              <div class="itemActions">
+                <button class="btn primary" type="button" data-action="customize">In den Warenkorb</button>
+                <button class="btn ghost" type="button" data-action="details">Details</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="item" data-category="getraenke" data-sku="thai-iced-tea" data-name="Thai Eistee" data-price="350" data-tags="">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iODAwIiB2aWV3Qm94PSIwIDAgODAwIDgwMCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJQbGF0emhhbHRlcmJpbGQgZsO8ciBGb29kLUZvdG8iPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzBmMGYwZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzJhMmExYSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJhIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmRkOTAzIiBzdG9wLW9wYWNpdHk9IjAuOTUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3Atb2xvcj0iI2RiZWU1MyIgc3RvcC1vcGFjaXR5PSIwLjI1Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI4MDAiIGZpbGw9InVybCgjZykiLz48Y2lyY2xlIGN4PSI0MDAiIGN5PSI0MjAiIHI9IjI1MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ1cmwoI2EpIiBzdHJva2Utd2lkdGg9IjE4Ii8+PGNpcmNsZSBjeD0iNDAwIiBjeT0iNDIwIiByPSIxNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZkZDkwMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMzUiIHN0cm9rZS13aWR0aD0iMTAiLz48cGF0aCBkPSJNMTkwIDI2MCBDMjgwIDE4MCwgNTIwIDE4MCwgNjEwIDI2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGJlZTUzIiBzdHJva2Utb3BhY2l0eT0iMC40NSIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTIyMCAyOTAgQzMwMCAyMjAsIDUwMCAyMjAsIDU4MCAyOTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZkZDkwMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMzUiIHN0cm9rZS13aWR0aD0iOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTUyMCAxNzAgTDcxMCAzNjAiIHN0cm9rZT0iI2ZkZDkwMyIgc3Ryb2tlLW9wYWNpdHk9IjAuNTUiIHN0cm9rZS13aWR0aD0iMTIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik01NjAgMTQwIEw3NDAgMzIwIiBzdHJva2U9IiNkYmVlNTMiIHN0cm9rZS1vcGFjaXR5PSIwLjM1IiBzdHJva2Utd2lkdGg9IjEwIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48dGV4dCB4PSI1MCUiIHk9Ijg3JSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InN5c3RlbS11aSwgLWFwcGxlLXN5c3RlbSwgU2Vnb2UgVUksIFJvYm90bywgQXJpYWwiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IiNmN2Y3ZjAiIG9wYWNpdHk9IjAuOSI+S0ktRm9vZGJpbGQgaGllciBlcnNldHplbjwvdGV4dD48dGV4dCB4PSI1MCUiIHk9IjkyJSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InN5c3RlbS11aSwgLWFwcGxlLXN5c3RlbSwgU2Vnb2UgVUksIFJvYm90bywgQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiNjZmNmYzYiIG9wYWNpdHk9IjAuOCI+KDE6MSDigKIgODAww5c4MDApPC90ZXh0Pjwvc3ZnPg==" alt="Platzhalter für Food-Foto – Thai Eistee" loading="lazy" />
+            <div>
+              <div class="itemTop">
+                <div>
+                  <h3 style="margin:0">Thai Eistee</h3>
+                  <p style="margin:6px 0 0">Erfrischend, süß – perfekt zu Curry.</p>
+                </div>
+                <div class="price">3,50 €</div>
+              </div>
+              <div class="metaRow">
+                <span class="tag">kalt</span>
+              </div>
+              <div class="itemActions">
+                <button class="btn primary" type="button" data-action="customize">In den Warenkorb</button>
+                <button class="btn ghost" type="button" data-action="details">Details</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <p class="hint" style="margin-top:12px">
+          Entwickler: Erweitere das Menü, indem du mehr <code>.item</code>-Cards hinzufügst oder per JS aus einer JSON-Struktur renderst.
+          Für Stripe ist entscheidend, dass das Backend die SKU-Liste kennt und serverseitig bepreist.
+        </p>
+      </section>
+
+      <section id="bestellen" aria-label="Bestellen">
+        <div class="kicker">Bestellen</div>
+        <h2>Lieferung oder Abholung</h2>
+        <p>
+          Wähle Lieferung oder Abholung, ergänze Kontakt- & Adressdetails und gehe dann zu Stripe Checkout oder WhatsApp.
+        </p>
+
+        <div class="card">
+          <div class="pad">
+            <form id="orderForm">
+              <div class="field">
+                <label>Bestellart</label>
+                <div class="radioRow" role="radiogroup" aria-label="Bestellart">
+                  <label class="radio"><input type="radio" name="fulfillment" value="pickup" checked /> Abholung</label>
+                  <label class="radio"><input type="radio" name="fulfillment" value="delivery" /> Lieferung</label>
+                </div>
+              </div>
+
+              <div class="row2">
+                <div class="field">
+                  <label for="name">Name *</label>
+                  <input id="name" name="name" autocomplete="name" required />
+                </div>
+                <div class="field">
+                  <label for="phone">Telefon *</label>
+                  <input id="phone" name="phone" autocomplete="tel" inputmode="tel" required placeholder="+49 ..." />
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="email">E-Mail (optional, für Bestätigung)</label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="name@example.com" />
+              </div>
+
+              <div id="addressFields" hidden>
+                <div class="row2">
+                  <div class="field">
+                    <label for="street">Straße & Nr. *</label>
+                    <input id="street" name="street" autocomplete="street-address" />
+                  </div>
+                  <div class="field">
+                    <label for="zip">PLZ *</label>
+                    <input id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" />
+                  </div>
+                </div>
+                <div class="row2">
+                  <div class="field">
+                    <label for="city">Ort *</label>
+                    <input id="city" name="city" autocomplete="address-level2" value="Köln" />
+                  </div>
+                  <div class="field">
+                    <label for="notesDoor">Hinweis (Klingel/Etage)</label>
+                    <input id="notesDoor" name="notesDoor" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="orderNote">Notiz an die Küche (optional)</label>
+                <textarea id="orderNote" name="orderNote" placeholder="z.B. weniger scharf, ohne Zwiebeln, Allergiehinweis …"></textarea>
+              </div>
+
+              <div class="consent">
+                <input id="consent" type="checkbox" required />
+                <label for="consent" style="margin:0">
+                  Ich akzeptiere die Datenschutzhinweise (Platzhalter) und verstehe, dass bei WhatsApp-Bestellung Daten an WhatsApp übertragen werden können.
+                </label>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="heroActions" style="justify-content:flex-start">
+                <button class="btn primary" type="button" id="stripeCheckoutBtn">Mit Karte zahlen (Stripe Checkout)</button>
+                <a class="btn" href="#" id="whatsappBtn">Per WhatsApp bestellen</a>
+                <a class="btn ghost" href="tel:+4922129966093">Kurz anrufen</a>
+              </div>
+
+              <p class="hint" id="checkoutStatus" aria-live="polite" style="margin-top:10px"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section id="tv" aria-label="TV">
+        <div class="kicker">Bekannt aus TV</div>
+        <h2>Erwähnung in TV-Format</h2>
+        <p>
+          Hinweis: Chang Thai wurde im Kontext der Sendung „Mein Lokal, Dein Lokal“ (Kabel Eins) im Themenfeld Curry erwähnt (historische Episode).
+          Verantwortlich für aktuelle Kommunikation bleibt der Betrieb.
+        </p>
+      </section>
+
+      <section id="zeiten" aria-label="Öffnungszeiten">
+        <div class="kicker">Zeiten</div>
+        <h2>Öffnungszeiten</h2>
+        <div class="card">
+          <div class="pad">
+            <p><strong>Mo–Sa:</strong> 11:30–22:00</p>
+            <p><strong>So:</strong> 14:00–22:00</p>
+            <p class="hint">
+              Tipp: Für Feiertage / Sondertage bitte Website/Instagram prüfen.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="kontakt" aria-label="Kontakt & Standort">
+        <div class="kicker">Kontakt</div>
+        <h2>Standort & Kontakt</h2>
+        <div class="card">
+          <div class="pad">
+            <p><strong>Adresse:</strong> Berrenrather Str. 196, 50939 Köln</p>
+            <p><strong>Telefon:</strong> <a href="tel:+4922129966093">+49 221 299 660 93</a></p>
+            <p class="hint">
+              Für Karten/Anfahrt: integriere z.B. einen Google Maps Link oder OpenStreetMap iFrame (Datenschutz beachten).
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Dialog: Modifikatoren -->
+  <dialog id="itemDialog" aria-labelledby="dlgTitle">
+    <div class="dlgHead">
+      <div>
+        <div class="kicker">Modifikatoren</div>
+        <div id="dlgTitle" style="font-weight:800; font-size:16px">Artikel</div>
+      </div>
+      <button class="btn ghost" type="button" id="dlgCloseBtn" aria-label="Dialog schließen">✕</button>
+    </div>
+
+    <div class="dlgBody">
+      <p class="hint" id="dlgDesc"></p>
+
+      <div class="row2">
+        <div class="field">
+          <label for="dlgSize">Größe</label>
+          <select id="dlgSize">
+            <option value="standard" selected>Standard (+0,00 €)</option>
+            <option value="gross">Groß (+2,00 €)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="dlgSpice">Schärfe</label>
+          <select id="dlgSpice">
+            <option value="mild">mild</option>
+            <option value="medium" selected>mittel</option>
+            <option value="hot">scharf</option>
+            <option value="thaihot">thai-scharf</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="dlgProtein">Protein / Variante</label>
+        <select id="dlgProtein">
+          <option value="default" selected>Wie beschrieben (Basispreis)</option>
+          <option value="tofu">+ Tofu (+3,00 €)</option>
+          <option value="chicken">+ Hähnchen (+4,50 €)</option>
+          <option value="beef">+ Rind (+5,00 €)</option>
+          <option value="prawns">+ Garnelen (+6,00 €)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="dlgExtras">Extras (optional)</label>
+        <select id="dlgExtras" multiple size="4" aria-describedby="dlgExtrasHint">
+          <option value="egg">Spiegelei (+2,50 €)</option>
+          <option value="peanut">Erdnusssauce (+2,00 €)</option>
+          <option value="rice">Extra Reis (+3,00 €)</option>
+          <option value="veg">Extra Gemüse (+4,00 €)</option>
+        </select>
+        <small class="hint" id="dlgExtrasHint">Mehrfachauswahl: Strg/Cmd gedrückt halten.</small>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label for="dlgQty">Menge</label>
+          <input id="dlgQty" type="number" min="1" value="1" inputmode="numeric" />
+        </div>
+        <div class="field">
+          <label for="dlgLinePrice">Preis (Schätzung)</label>
+          <input id="dlgLinePrice" readonly />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="dlgNote">Hinweis zu diesem Artikel (optional)</label>
+        <input id="dlgNote" placeholder="z.B. ohne Zwiebeln" />
+      </div>
+
+      <div class="pill" style="margin-top:8px">
+        <strong>Hinweis:</strong> Für Stripe gilt serverseitige Preisprüfung (Client-Preis ist nur Schätzung).
+      </div>
+    </div>
+
+    <div class="dlgFoot">
+      <button class="btn ghost" type="button" id="dlgCancelBtn">Abbrechen</button>
+      <button class="btn primary" type="button" id="dlgAddBtn">Hinzufügen</button>
+    </div>
+  </dialog>
+
+  <footer>
+    <div class="wrap">
+      <p>
+        <strong>Chang Thai Köln</strong> · Berrenrather Str. 196, 50939 Köln ·
+        <a href="tel:+4922129966093">+49 221 299 660 93</a>
+      </p>
+      <p>
+        Instagram: <a href="https://www.instagram.com/changthai.koeln/" rel="noopener" target="_blank">@changthai.koeln</a>
+      </p>
+
+      <p class="hint">
+        Rechtliches (Platzhalter): Impressum · Datenschutz · AGB – bitte gemäß deutschem Recht finalisieren.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    /*
+      =========================
+      KONFIGURATION (ANPASSEN)
+      =========================
+
+      Stripe Setup:
+      - STRIPE_CREATE_SESSION_URL muss auf dein Backend/Serverless zeigen.
+      - Das Backend nutzt STRIPE_SECRET_KEY um eine Checkout Session zu erstellen.
+      - Webhook: /api/stripe-webhook verarbeitet checkout.session.completed und verifiziert Signatur.
+
+      Defaults:
+      - taxRate ist eine Schätzung im Frontend.
+      - deliveryFee ist ein Default (bitte final definieren).
+    */
+
+    const CONFIG = {
+      restaurantName: "Chang Thai Köln",
+      phoneE164: "4922129966093", // ohne +, ohne Leerzeichen
+      currency: "EUR",
+      taxRate: 0.07,            // Default: 7% (bitte steuerlich final prüfen)
+      deliveryFeeEUR: 2.50,     // Default (UNSPEZIFIZIERT): ändern
+      minOrderDeliveryEUR: 15.00, // Default (UNSPEZIFIZIERT): ändern
+
+      // TODO: Setze dein echtes Endpoint-URL
+      STRIPE_CREATE_SESSION_URL: "https://DEIN-BACKEND.example/api/create-checkout-session"
+    };
+
+    const fmtEUR = (cents) => new Intl.NumberFormat("de-DE", { style: "currency", currency: CONFIG.currency }).format(cents / 100);
+
+    const cart = {
+      items: [],
+      fulfillment: "pickup"
+    };
+
+    const priceRules = {
+      size: { standard: 0, gross: 200 },
+      protein: { default: 0, tofu: 300, chicken: 450, beef: 500, prawns: 600 },
+      extras: { egg: 250, peanut: 200, rice: 300, veg: 400 }
+    };
+
+    const els = {
+      cartItems: document.getElementById("cartItems"),
+      subtotal: document.getElementById("subtotal"),
+      tax: document.getElementById("tax"),
+      deliveryFee: document.getElementById("deliveryFee"),
+      total: document.getElementById("total"),
+      minOrderHint: document.getElementById("minOrderHint"),
+      clearCartBtn: document.getElementById("clearCartBtn"),
+
+      orderForm: document.getElementById("orderForm"),
+      addressFields: document.getElementById("addressFields"),
+      stripeCheckoutBtn: document.getElementById("stripeCheckoutBtn"),
+      whatsappBtn: document.getElementById("whatsappBtn"),
+      checkoutStatus: document.getElementById("checkoutStatus"),
+
+      itemDialog: document.getElementById("itemDialog"),
+      dlgTitle: document.getElementById("dlgTitle"),
+      dlgDesc: document.getElementById("dlgDesc"),
+      dlgCloseBtn: document.getElementById("dlgCloseBtn"),
+      dlgCancelBtn: document.getElementById("dlgCancelBtn"),
+      dlgAddBtn: document.getElementById("dlgAddBtn"),
+
+      dlgSize: document.getElementById("dlgSize"),
+      dlgSpice: document.getElementById("dlgSpice"),
+      dlgProtein: document.getElementById("dlgProtein"),
+      dlgExtras: document.getElementById("dlgExtras"),
+      dlgQty: document.getElementById("dlgQty"),
+      dlgLinePrice: document.getElementById("dlgLinePrice"),
+      dlgNote: document.getElementById("dlgNote")
+    };
+
+    function getSelectedMulti(selectEl){
+      return Array.from(selectEl.selectedOptions).map(o => o.value);
+    }
+
+    function calcLineCents(baseCents, mods){
+      let c = baseCents;
+      c += priceRules.size[mods.size] || 0;
+      c += priceRules.protein[mods.protein] || 0;
+      for(const ex of (mods.extras || [])){
+        c += priceRules.extras[ex] || 0;
+      }
+      return c;
+    }
+
+    function calcTotals(){
+      const subtotalCents = cart.items.reduce((sum, it) => sum + it.lineCents * it.qty, 0);
+      const deliveryFeeCents = (cart.fulfillment === "delivery" && subtotalCents > 0) ? Math.round(CONFIG.deliveryFeeEUR * 100) : 0;
+      const taxCents = Math.round(subtotalCents * CONFIG.taxRate);
+      const totalCents = subtotalCents + taxCents + deliveryFeeCents;
+      return { subtotalCents, taxCents, deliveryFeeCents, totalCents };
+    }
+
+    function renderCart(){
+      els.cartItems.innerHTML = "";
+
+      if(cart.items.length === 0){
+        const li = document.createElement("li");
+        li.className = "hint";
+        li.textContent = "Warenkorb ist leer. Wähle ein Gericht im Menü.";
+        els.cartItems.appendChild(li);
+      } else {
+        cart.items.forEach((it, idx) => {
+          const li = document.createElement("li");
+          li.className = "cartLine";
+
+          const left = document.createElement("div");
+          const title = document.createElement("b");
+          title.textContent = it.name;
+          const desc = document.createElement("small");
+          const mods = [];
+          if(it.mods.size && it.mods.size !== "standard") mods.push("Größe: " + it.mods.size);
+          if(it.mods.protein && it.mods.protein !== "default") mods.push("Variante: " + it.mods.protein);
+          if(it.mods.spice) mods.push("Schärfe: " + it.mods.spice);
+          if(it.mods.extras && it.mods.extras.length) mods.push("Extras: " + it.mods.extras.join(", "));
+          if(it.note) mods.push("Notiz: " + it.note);
+          desc.textContent = mods.join(" · ") || "Standard";
+          left.appendChild(title);
+          left.appendChild(desc);
+
+          const right = document.createElement("div");
+          right.style.display = "grid";
+          right.style.justifyItems = "end";
+          right.style.gap = "6px";
+
+          const linePrice = document.createElement("div");
+          linePrice.className = "price";
+          linePrice.textContent = fmtEUR(it.lineCents * it.qty);
+
+          const qty = document.createElement("div");
+          qty.className = "qty";
+
+          const minus = document.createElement("button");
+          minus.type = "button";
+          minus.textContent = "–";
+          minus.setAttribute("aria-label", "Menge reduzieren");
+          minus.addEventListener("click", () => {
+            it.qty = Math.max(1, it.qty - 1);
+            saveCart();
+            renderCart();
+          });
+
+          const q = document.createElement("span");
+          q.textContent = String(it.qty);
+
+          const plus = document.createElement("button");
+          plus.type = "button";
+          plus.textContent = "+";
+          plus.setAttribute("aria-label", "Menge erhöhen");
+          plus.addEventListener("click", () => {
+            it.qty = Math.min(99, it.qty + 1);
+            saveCart();
+            renderCart();
+          });
+
+          const del = document.createElement("button");
+          del.type = "button";
+          del.className = "btn ghost";
+          del.style.padding = "8px 10px";
+          del.textContent = "Entfernen";
+          del.addEventListener("click", () => {
+            cart.items.splice(idx, 1);
+            saveCart();
+            renderCart();
+          });
+
+          qty.appendChild(minus);
+          qty.appendChild(q);
+          qty.appendChild(plus);
+
+          right.appendChild(linePrice);
+          right.appendChild(qty);
+          right.appendChild(del);
+
+          li.appendChild(left);
+          li.appendChild(right);
+
+          els.cartItems.appendChild(li);
+        });
+      }
+
+      const { subtotalCents, taxCents, deliveryFeeCents, totalCents } = calcTotals();
+      els.subtotal.textContent = fmtEUR(subtotalCents);
+      els.tax.textContent = fmtEUR(taxCents);
+      els.deliveryFee.textContent = fmtEUR(deliveryFeeCents);
+      els.total.textContent = fmtEUR(totalCents);
+
+      const minOk = subtotalCents >= Math.round(CONFIG.minOrderDeliveryEUR * 100);
+      els.minOrderHint.textContent = (cart.fulfillment === "delivery")
+        ? ("Lieferung: Mindestbestellwert " + CONFIG.minOrderDeliveryEUR.toFixed(2).replace(".", ",") + " € " + (minOk ? "✓" : "✕"))
+        : "Abholung: kein Mindestbestellwert (Default).";
+
+      updateWhatsAppLink();
+    }
+
+    function saveCart(){
+      try{
+        localStorage.setItem("changthai_cart_v1", JSON.stringify(cart));
+      }catch(e){}
+    }
+
+    function loadCart(){
+      try{
+        const raw = localStorage.getItem("changthai_cart_v1");
+        if(!raw) return;
+        const parsed = JSON.parse(raw);
+        if(parsed && Array.isArray(parsed.items)){
+          cart.items = parsed.items;
+          cart.fulfillment = parsed.fulfillment || "pickup";
+        }
+      }catch(e){}
+    }
+
+    function openDialogForItem(itemEl){
+      const sku = itemEl.dataset.sku;
+      const name = itemEl.dataset.name;
+      const basePriceCents = Number(itemEl.dataset.price || "0");
+      const descText = itemEl.querySelector("p")?.textContent?.trim() || "";
+
+      els.itemDialog.dataset.sku = sku;
+      els.itemDialog.dataset.name = name;
+      els.itemDialog.dataset.base = String(basePriceCents);
+
+      els.dlgTitle.textContent = name;
+      els.dlgDesc.textContent = descText;
+
+      els.dlgSize.value = "standard";
+      els.dlgSpice.value = "medium";
+      els.dlgProtein.value = "default";
+      Array.from(els.dlgExtras.options).forEach(o => o.selected = false);
+      els.dlgQty.value = "1";
+      els.dlgNote.value = "";
+
+      updateDialogPrice();
+
+      if(typeof els.itemDialog.showModal === "function"){
+        els.itemDialog.showModal();
+      } else {
+        alert("Dein Browser unterstützt <dialog> nicht. Bitte aktualisieren oder alternatives UI verwenden.");
+      }
+    }
+
+    function updateDialogPrice(){
+      const base = Number(els.itemDialog.dataset.base || "0");
+      const mods = {
+        size: els.dlgSize.value,
+        spice: els.dlgSpice.value,
+        protein: els.dlgProtein.value,
+        extras: getSelectedMulti(els.dlgExtras)
+      };
+      const qty = Math.max(1, Number(els.dlgQty.value || "1"));
+      const lineCents = calcLineCents(base, mods);
+      els.dlgLinePrice.value = fmtEUR(lineCents * qty);
+    }
+
+    function addFromDialog(){
+      const sku = els.itemDialog.dataset.sku;
+      const name = els.itemDialog.dataset.name;
+      const base = Number(els.itemDialog.dataset.base || "0");
+
+      const mods = {
+        size: els.dlgSize.value,
+        spice: els.dlgSpice.value,
+        protein: els.dlgProtein.value,
+        extras: getSelectedMulti(els.dlgExtras)
+      };
+      const qty = Math.max(1, Number(els.dlgQty.value || "1"));
+      const note = (els.dlgNote.value || "").trim();
+
+      const lineCents = calcLineCents(base, mods);
+
+      cart.items.push({
+        sku,
+        name,
+        baseCents: base,
+        mods,
+        note,
+        qty,
+        lineCents
+      });
+
+      saveCart();
+      renderCart();
+
+      els.itemDialog.close();
+      els.checkoutStatus.textContent = "Artikel hinzugefügt ✓";
+      setTimeout(() => { els.checkoutStatus.textContent = ""; }, 1800);
+    }
+
+    function setFulfillment(v){
+      cart.fulfillment = v;
+      els.addressFields.hidden = (v !== "delivery");
+      saveCart();
+      renderCart();
+    }
+
+    function updateWhatsAppLink(){
+      const { subtotalCents, taxCents, deliveryFeeCents, totalCents } = calcTotals();
+
+      const form = new FormData(els.orderForm);
+      const name = form.get("name") || "";
+      const phone = form.get("phone") || "";
+      const fulfillment = form.get("fulfillment") || "pickup";
+
+      let address = "";
+      if(fulfillment === "delivery"){
+        address = [
+          form.get("street") || "",
+          (form.get("zip") || "") + " " + (form.get("city") || ""),
+          form.get("notesDoor") ? ("Hinweis: " + form.get("notesDoor")) : ""
+        ].filter(Boolean).join(" | ");
+      }
+
+      const lines = cart.items.map((it) => {
+        const mods = [];
+        if(it.mods.size && it.mods.size !== "standard") mods.push("Größe: " + it.mods.size);
+        if(it.mods.protein && it.mods.protein !== "default") mods.push("Variante: " + it.mods.protein);
+        if(it.mods.spice) mods.push("Schärfe: " + it.mods.spice);
+        if(it.mods.extras && it.mods.extras.length) mods.push("Extras: " + it.mods.extras.join(", "));
+        if(it.note) mods.push("Notiz: " + it.note);
+        const modText = mods.length ? (" (" + mods.join("; ") + ")") : "";
+        return `- ${it.qty}× ${it.name}${modText} = ${fmtEUR(it.lineCents * it.qty)}`;
+      }).join("\n");
+
+      const msg =
+`Hallo Chang Thai 👋
+Ich möchte bestellen:
+
+${lines || "- (Warenkorb leer)"}
+
+Bestellart: ${fulfillment === "delivery" ? "Lieferung" : "Abholung"}
+${fulfillment === "delivery" ? ("Adresse: " + address) : ""}
+
+Zwischensumme: ${fmtEUR(subtotalCents)}
+MwSt (Schätzung): ${fmtEUR(taxCents)}
+Liefergebühr: ${fmtEUR(deliveryFeeCents)}
+Gesamt: ${fmtEUR(totalCents)}
+
+Name: ${name}
+Telefon: ${phone}
+
+Notiz: ${(form.get("orderNote") || "").toString().trim()}
+`;
+
+      const url = "https://wa.me/" + CONFIG.phoneE164 + "?text=" + encodeURIComponent(msg);
+      els.whatsappBtn.href = url;
+    }
+
+    async function startStripeCheckout(){
+      els.checkoutStatus.textContent = "";
+      if(cart.items.length === 0){
+        els.checkoutStatus.textContent = "Bitte lege zuerst Artikel in den Warenkorb.";
+        return;
+      }
+
+      if(!els.orderForm.reportValidity()){
+        els.checkoutStatus.textContent = "Bitte prüfe die Pflichtfelder.";
+        return;
+      }
+
+      const form = new FormData(els.orderForm);
+      const fulfillment = form.get("fulfillment");
+
+      // Mindestbestellwert für Lieferung (Default-Regel)
+      const { subtotalCents } = calcTotals();
+      if(fulfillment === "delivery"){
+        const minCents = Math.round(CONFIG.minOrderDeliveryEUR * 100);
+        if(subtotalCents < minCents){
+          els.checkoutStatus.textContent = "Lieferung: Mindestbestellwert nicht erreicht.";
+          return;
+        }
+      }
+
+      els.checkoutStatus.textContent = "Checkout wird vorbereitet …";
+
+      const payload = {
+        currency: CONFIG.currency,
+        fulfillment: {
+          type: fulfillment,
+          deliveryFeeEUR: CONFIG.deliveryFeeEUR
+        },
+        customer: {
+          name: form.get("name"),
+          phone: form.get("phone"),
+          email: form.get("email") || null,
+          address: fulfillment === "delivery" ? {
+            street: form.get("street"),
+            zip: form.get("zip"),
+            city: form.get("city"),
+            notesDoor: form.get("notesDoor") || null
+          } : null
+        },
+        note: (form.get("orderNote") || "").toString().trim() || null,
+        cart: cart.items
+      };
+
+      try{
+        const res = await fetch(CONFIG.STRIPE_CREATE_SESSION_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if(!res.ok){
+          const txt = await res.text();
+          throw new Error("Serverfehler: " + txt);
+        }
+
+        const data = await res.json();
+        if(data.url){
+          window.location.href = data.url; // Einfachster Redirect zu Stripe Checkout
+          return;
+        }
+
+        els.checkoutStatus.textContent = "Fehlende URL vom Server. Prüfe /api/create-checkout-session Response.";
+      }catch(err){
+        console.error(err);
+        els.checkoutStatus.textContent = "Checkout fehlgeschlagen: " + (err?.message || "unbekannter Fehler");
+      }
+    }
+
+    // Filter UI
+    function setupFilters(){
+      const buttons = document.querySelectorAll(".chip[data-filter]");
+      const items = document.querySelectorAll(".item[data-category]");
+
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const f = btn.dataset.filter;
+          buttons.forEach(b => b.setAttribute("aria-pressed", "false"));
+          btn.setAttribute("aria-pressed", "true");
+
+          items.forEach(it => {
+            const cat = it.dataset.category;
+            it.style.display = (f === "all" || cat === f) ? "" : "none";
+          });
+        });
+      });
+    }
+
+    // Setup menu actions
+    function setupMenuActions(){
+      document.getElementById("menuGrid").addEventListener("click", (ev) => {
+        const btn = ev.target.closest("button[data-action]");
+        if(!btn) return;
+
+        const itemEl = ev.target.closest(".item");
+        if(!itemEl) return;
+
+        const action = btn.dataset.action;
+
+        if(action === "customize"){
+          openDialogForItem(itemEl);
+          return;
+        }
+        if(action === "details"){
+          const name = itemEl.dataset.name;
+          const price = fmtEUR(Number(itemEl.dataset.price || "0"));
+          alert(name + " – Basispreis: " + price + "\nHinweis: Bitte final mit offizieller Speisekarte abstimmen.");
+        }
+      });
+    }
+
+    // Dialog bindings
+    function setupDialog(){
+      const update = () => updateDialogPrice();
+      ["change", "input"].forEach(evt => {
+        els.dlgSize.addEventListener(evt, update);
+        els.dlgSpice.addEventListener(evt, update);
+        els.dlgProtein.addEventListener(evt, update);
+        els.dlgExtras.addEventListener(evt, update);
+        els.dlgQty.addEventListener(evt, update);
+      });
+
+      els.dlgCloseBtn.addEventListener("click", () => els.itemDialog.close());
+      els.dlgCancelBtn.addEventListener("click", () => els.itemDialog.close());
+      els.dlgAddBtn.addEventListener("click", addFromDialog);
+
+      document.addEventListener("keydown", (e) => {
+        if(e.key === "Escape" && els.itemDialog.open){
+          els.itemDialog.close();
+        }
+      });
+    }
+
+    // Order form bindings
+    function setupForm(){
+      els.orderForm.addEventListener("change", () => updateWhatsAppLink());
+      els.orderForm.addEventListener("input", () => updateWhatsAppLink());
+
+      const radios = els.orderForm.querySelectorAll('input[name="fulfillment"]');
+      radios.forEach(r => r.addEventListener("change", () => setFulfillment(r.value)));
+
+      els.stripeCheckoutBtn.addEventListener("click", startStripeCheckout);
+
+      els.clearCartBtn.addEventListener("click", () => {
+        cart.items = [];
+        saveCart();
+        renderCart();
+      });
+    }
+
+    // Init
+    loadCart();
+    // Set DOM state for fulfillment
+    const checked = document.querySelector('input[name="fulfillment"]:checked')?.value || "pickup";
+    setFulfillment(cart.fulfillment || checked);
+
+    setupFilters();
+    setupMenuActions();
+    setupDialog();
+    setupForm();
+    renderCart();
+
+    // Read return params from Stripe checkout (optional UI hint)
+    (() => {
+      const url = new URL(window.location.href);
+      const checkout = url.searchParams.get("checkout");
+      const sessionId = url.searchParams.get("session_id");
+      if(checkout === "success"){
+        const msg = "Danke! Zahlung erfolgreich. " + (sessionId ? ("Session: " + sessionId) : "") +
+          " Hinweis: Final bestätigt wird die Bestellung serverseitig via Webhook.";
+        alert(msg);
+      }
+      if(checkout === "cancel"){
+        alert("Checkout abgebrochen. Du kannst die Bestellung erneut starten.");
+      }
+    })();
+  </script>
+</body>
+</html>
