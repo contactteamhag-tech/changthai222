@@ -1,1153 +1,473 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Chang Thai Köln – Authentische Thai-Küche in Sülz</title>
-  <meta
-    name="description"
-    content="Chang Thai Köln in Sülz: authentische Thai-Küche, bekannt aus Kabel Eins. Moderne Website mit Speisekarten-Highlights, Auszeichnung, Kontakt und Bestellmöglichkeit."
-  />
-  <meta
-    name="keywords"
-    content="Chang Thai Köln, Thai Restaurant Köln, Thai Imbiss Köln, Sülz, Berrenrather Straße, Kabel Eins, Mein Lokal Dein Lokal, Thai Curry Köln"
-  />
-  <meta name="theme-color" content="#0c1220" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@600;700&display=swap"
-    rel="stylesheet"
-  />
-
-  <style>
-    :root{
-      --bg:#07101b;
-      --bg-soft:#0d1726;
-      --surface:rgba(255,255,255,0.06);
-      --surface-2:rgba(255,255,255,0.08);
-      --line:rgba(255,255,255,0.10);
-      --text:#f7fafc;
-      --muted:#c3cfdf;
-      --soft:#90a2ba;
-      --gold:#e3bf73;
-      --gold-2:#f7ddb0;
-      --accent:#ff9452;
-      --shadow:0 24px 70px rgba(0,0,0,.35);
-      --radius:28px;
-      --radius-sm:20px;
-      --max:1260px;
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at 15% 0%, rgba(227,191,115,.18), transparent 26%),
-        radial-gradient(circle at 100% 10%, rgba(255,148,82,.14), transparent 25%),
-        linear-gradient(180deg, #08111d 0%, #091421 45%, #07101b 100%);
-      line-height:1.6;
-      overflow-x:hidden;
-    }
-
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background:
-        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
-      background-size:42px 42px;
-      mask-image:radial-gradient(circle at center, #000 42%, transparent 100%);
-      opacity:.35;
-      z-index:0;
-    }
-
-    a{color:inherit;text-decoration:none}
-    img{display:block;max-width:100%}
-
-    .container{
-      width:min(var(--max), calc(100% - 36px));
-      margin:0 auto;
-      position:relative;
-      z-index:1;
-    }
-
-    .nav-wrap{
-      position:sticky;
-      top:0;
-      z-index:50;
-      backdrop-filter:blur(16px);
-      background:rgba(7,16,27,.72);
-      border-bottom:1px solid rgba(255,255,255,.06);
-    }
-
-    .nav{
-      min-height:80px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      min-width:0;
-    }
-
-    .brand-logo{
-      width:50px;
-      height:50px;
-      border-radius:16px;
-      object-fit:cover;
-      border:1px solid rgba(227,191,115,.25);
-      background:#111;
-      box-shadow:0 8px 24px rgba(0,0,0,.25);
-    }
-
-    .brand-fallback{
-      width:50px;
-      height:50px;
-      border-radius:16px;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(135deg, rgba(227,191,115,.22), rgba(255,148,82,.14));
-      color:var(--gold-2);
-      font-weight:900;
-      border:1px solid rgba(227,191,115,.25);
-      letter-spacing:.05em;
-    }
-
-    .brand-copy{min-width:0}
-    .brand-title{
-      font-size:1rem;
-      font-weight:900;
-      letter-spacing:.04em;
-      text-transform:uppercase;
-    }
-    .brand-sub{
-      font-size:.84rem;
-      color:var(--soft);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .nav-links{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-
-    .nav-links a{
-      padding:10px 14px;
-      border-radius:999px;
-      color:var(--muted);
-      font-weight:700;
-      font-size:.94rem;
-      transition:.25s ease;
-    }
-
-    .nav-links a:hover{
-      background:rgba(255,255,255,.06);
-      color:#fff;
-    }
-
-    .nav-cta{
-      background:linear-gradient(135deg, var(--gold), var(--accent));
-      color:#1b1200 !important;
-      font-weight:900 !important;
-      box-shadow:0 14px 28px rgba(227,191,115,.2);
-    }
-
-    .hero{
-      padding:64px 0 28px;
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.08fr .92fr;
-      gap:26px;
-      align-items:stretch;
-    }
-
-    .hero-copy,
-    .hero-visual{
-      border-radius:34px;
-      border:1px solid var(--line);
-      overflow:hidden;
-      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
-      box-shadow:var(--shadow);
-      position:relative;
-    }
-
-    .hero-copy{
-      padding:42px;
-    }
-
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:9px 14px;
-      border-radius:999px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.08);
-      color:var(--gold-2);
-      font-size:.79rem;
-      font-weight:900;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      margin-bottom:18px;
-    }
-
-    h1,h2,h3,h4{
-      margin:0;
-      line-height:1.05;
-      letter-spacing:-.03em;
-    }
-
-    .display{
-      font-family:"Cormorant Garamond", serif;
-      font-weight:700;
-    }
-
-    .hero h1{
-      font-size:clamp(2.8rem, 5vw, 5.2rem);
-      margin-bottom:16px;
-      max-width:11ch;
-    }
-
-    .hero h1 span{color:var(--gold-2)}
-
-    .hero-copy p{
-      margin:0 0 26px;
-      font-size:1.06rem;
-      color:var(--muted);
-      max-width:62ch;
-    }
-
-    .hero-actions{
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
-      margin-bottom:26px;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding:15px 22px;
-      border-radius:999px;
-      font-weight:900;
-      transition:.25s ease;
-      border:1px solid transparent;
-    }
-
-    .btn-primary{
-      background:linear-gradient(135deg, var(--gold), var(--accent));
-      color:#1d1300;
-      box-shadow:0 14px 30px rgba(227,191,115,.2);
-    }
-
-    .btn-primary:hover{transform:translateY(-2px)}
-    .btn-secondary{
-      background:rgba(255,255,255,.05);
-      border-color:rgba(255,255,255,.10);
-      color:#fff;
-    }
-    .btn-secondary:hover{
-      background:rgba(255,255,255,.08);
-      transform:translateY(-2px);
-    }
-
-    .hero-stats{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0,1fr));
-      gap:14px;
-    }
-
-    .stat{
-      padding:18px;
-      border-radius:22px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.08);
-      min-height:108px;
-    }
-
-    .stat strong{
-      display:block;
-      font-size:1.26rem;
-      font-weight:900;
-      margin-bottom:6px;
-      color:#fff;
-    }
-
-    .stat span{
-      display:block;
-      color:var(--soft);
-      font-size:.93rem;
-    }
-
-    .hero-visual{
-      min-height:100%;
-      display:grid;
-      grid-template-rows:1.25fr .75fr;
-    }
-
-    .hero-image{
-      position:relative;
-      min-height:420px;
-      background:
-        linear-gradient(180deg, rgba(7,16,27,.12), rgba(7,16,27,.56)),
-        url("images/changthai-hero.jpg") center/cover no-repeat;
-    }
-
-    .hero-overlay{
-      position:absolute;
-      inset:auto 22px 22px 22px;
-      padding:22px;
-      border-radius:24px;
-      background:linear-gradient(180deg, rgba(7,16,27,.32), rgba(7,16,27,.68));
-      border:1px solid rgba(255,255,255,.08);
-      backdrop-filter:blur(10px);
-    }
-
-    .hero-overlay .tag{
-      display:inline-flex;
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(227,191,115,.14);
-      color:var(--gold-2);
-      font-size:.75rem;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-weight:900;
-      margin-bottom:10px;
-    }
-
-    .hero-overlay h3{
-      font-size:1.55rem;
-      margin-bottom:8px;
-    }
-
-    .hero-overlay p{
-      margin:0;
-      color:var(--muted);
-      font-size:.96rem;
-    }
-
-    .hero-cards{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-      padding:14px;
-    }
-
-    .mini-card{
-      padding:18px;
-      border-radius:22px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.08);
-    }
-
-    .mini-card .small-tag{
-      color:var(--gold-2);
-      font-size:.74rem;
-      font-weight:900;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      margin-bottom:8px;
-      display:block;
-    }
-
-    .mini-card h4{
-      font-size:1.02rem;
-      margin-bottom:6px;
-    }
-
-    .mini-card p{
-      margin:0;
-      color:var(--soft);
-      font-size:.92rem;
-    }
-
-    .section{
-      padding:34px 0;
-    }
-
-    .section-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:end;
-      gap:18px;
-      flex-wrap:wrap;
-      margin-bottom:22px;
-    }
-
-    .section-kicker{
-      color:var(--gold-2);
-      font-size:.78rem;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-weight:900;
-      margin-bottom:10px;
-    }
-
-    .section h2{
-      font-size:clamp(2rem, 3.7vw, 3.4rem);
-      font-family:"Cormorant Garamond", serif;
-      font-weight:700;
-    }
-
-    .section-head p{
-      margin:10px 0 0;
-      color:var(--muted);
-      max-width:68ch;
-    }
-
-    .grid-3{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0,1fr));
-      gap:18px;
-    }
-
-    .card{
-      border-radius:28px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
-      box-shadow:var(--shadow);
-      overflow:hidden;
-    }
-
-    .card-pad{padding:24px}
-
-    .feature-card{
-      padding:24px;
-      position:relative;
-    }
-
-    .feature-icon{
-      width:58px;
-      height:58px;
-      border-radius:18px;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(135deg, rgba(227,191,115,.22), rgba(255,148,82,.14));
-      border:1px solid rgba(227,191,115,.22);
-      color:var(--gold-2);
-      font-size:1.15rem;
-      font-weight:900;
-      margin-bottom:18px;
-    }
-
-    .feature-card h3{
-      font-size:1.16rem;
-      margin-bottom:10px;
-    }
-
-    .feature-card p{
-      margin:0;
-      color:var(--muted);
-    }
-
-    .about-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:20px;
-    }
-
-    .about-image{
-      min-height:420px;
-      background:
-        linear-gradient(180deg, rgba(7,16,27,.14), rgba(7,16,27,.5)),
-        url("images/changthai-interior.jpg") center/cover no-repeat;
-    }
-
-    .about-copy{
-      padding:28px;
-    }
-
-    .about-copy p{
-      margin:0 0 14px;
-      color:var(--muted);
-    }
-
-    .info-list{
-      display:grid;
-      gap:12px;
-      margin-top:20px;
-    }
-
-    .info-item{
-      padding:14px 16px;
-      border-radius:18px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.08);
-    }
-
-    .info-item strong{
-      display:block;
-      margin-bottom:3px;
-      font-size:.96rem;
-    }
-
-    .info-item span{
-      color:var(--soft);
-      font-size:.94rem;
-    }
-
-    .menu-grid{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0,1fr));
-      gap:18px;
-    }
-
-    .menu-card{
-      padding:22px;
-      border-radius:24px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
-      box-shadow:var(--shadow);
-      display:flex;
-      flex-direction:column;
-      min-height:240px;
-    }
-
-    .menu-top{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:10px;
-      margin-bottom:14px;
-    }
-
-    .menu-tag{
-      display:inline-flex;
-      padding:8px 10px;
-      border-radius:999px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.08);
-      color:var(--gold-2);
-      font-size:.74rem;
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-    }
-
-    .price{
-      font-size:1.12rem;
-      font-weight:900;
-      color:#fff;
-      white-space:nowrap;
-    }
-
-    .menu-card h3{
-      font-size:1.12rem;
-      margin-bottom:8px;
-    }
-
-    .menu-card p{
-      margin:0;
-      color:var(--muted);
-      font-size:.95rem;
-    }
-
-    .menu-card .meta{
-      margin-top:auto;
-      padding-top:16px;
-      color:var(--soft);
-      font-size:.88rem;
-    }
-
-    .gallery-grid{
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:18px;
-    }
-
-    .gallery-main{
-      min-height:480px;
-      background:
-        linear-gradient(180deg, rgba(7,16,27,.08), rgba(7,16,27,.34)),
-        url("images/changthai-signature-dish.jpg") center/cover no-repeat;
-      position:relative;
-    }
-
-    .gallery-side{
-      display:grid;
-      gap:18px;
-    }
-
-    .gallery-small{
-      min-height:231px;
-      position:relative;
-      background-size:cover;
-      background-position:center;
-    }
-
-    .gallery-small.one{
-      background-image:
-        linear-gradient(180deg, rgba(7,16,27,.08), rgba(7,16,27,.34)),
-        url("images/changthai-dish-1.jpg");
-    }
-
-    .gallery-small.two{
-      background-image:
-        linear-gradient(180deg, rgba(7,16,27,.08), rgba(7,16,27,.34)),
-        url("images/changthai-dish-2.jpg");
-    }
-
-    .gallery-caption{
-      position:absolute;
-      left:18px;
-      right:18px;
-      bottom:18px;
-      padding:16px 18px;
-      border-radius:18px;
-      background:rgba(7,16,27,.55);
-      border:1px solid rgba(255,255,255,.08);
-      backdrop-filter:blur(8px);
-    }
-
-    .gallery-caption strong{
-      display:block;
-      margin-bottom:4px;
-      font-size:1rem;
-    }
-
-    .gallery-caption span{
-      color:var(--muted);
-      font-size:.92rem;
-    }
-
-    .awards-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:18px;
-    }
-
-    .award-card{
-      padding:26px;
-      border-radius:28px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
-      box-shadow:var(--shadow);
-    }
-
-    .award-card .award-tag{
-      display:inline-flex;
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(227,191,115,.14);
-      color:var(--gold-2);
-      font-size:.74rem;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-weight:900;
-      margin-bottom:12px;
-    }
-
-    .award-card h3{
-      font-size:1.3rem;
-      margin-bottom:10px;
-    }
-
-    .award-card p{
-      margin:0;
-      color:var(--muted);
-    }
-
-    .contact-wrap{
-      display:grid;
-      grid-template-columns:1.06fr .94fr;
-      gap:20px;
-      align-items:stretch;
-    }
-
-    .contact-card,
-    .map-card{
-      border-radius:30px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
-      box-shadow:var(--shadow);
-      overflow:hidden;
-    }
-
-    .contact-card{padding:30px}
-
-    .contact-card p{
-      margin:0 0 20px;
-      color:var(--muted);
-    }
-
-    .contact-grid{
-      display:grid;
-      gap:12px;
-      margin-bottom:20px;
-    }
-
-    .contact-item{
-      padding:16px 18px;
-      border-radius:18px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.08);
-    }
-
-    .contact-item strong{
-      display:block;
-      margin-bottom:4px;
-      font-size:.95rem;
-    }
-
-    .contact-item span{
-      color:var(--soft);
-      font-size:.94rem;
-    }
-
-    .map-card iframe{
-      width:100%;
-      height:100%;
-      min-height:450px;
-      border:0;
-      filter:grayscale(.15) contrast(1.02) saturate(.95);
-    }
-
-    footer{
-      padding:26px 0 56px;
-      color:var(--soft);
-      font-size:.92rem;
-    }
-
-    .footer-wrap{
-      border-top:1px solid rgba(255,255,255,.08);
-      padding-top:18px;
-      display:flex;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
-    }
-
-    @media (max-width: 1120px){
-      .hero-grid,
-      .about-grid,
-      .gallery-grid,
-      .contact-wrap,
-      .awards-grid{
-        grid-template-columns:1fr;
+import React, { useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import { ShoppingCart, MapPin, Phone, Clock3, Star, Flame, ChefHat, Award, Truck, Store, Plus, Minus, Instagram, ExternalLink, CheckCircle2 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+const menu = [
+  {
+    id: 1,
+    category: "Signature",
+    name: "Gaeng Kiawwaan",
+    description: "Cremiges grünes Thai-Curry mit feiner Schärfe, Gemüse und Duftreis.",
+    price: 12.5,
+    spicy: true,
+    bestseller: true,
+  },
+  {
+    id: 2,
+    category: "Signature",
+    name: "Pad Thai",
+    description: "Gebratene Reisnudeln mit Tamarinde, Sprossen, Kräutern und Limette.",
+    price: 13.5,
+    bestseller: true,
+  },
+  {
+    id: 3,
+    category: "Signature",
+    name: "Phad Kimao",
+    description: "Würzige Thai-Nudeln im Streetfood-Stil mit Gemüse und kräftigen Aromen.",
+    price: 13.9,
+    spicy: true,
+  },
+  {
+    id: 4,
+    category: "Starter",
+    name: "Gyoza",
+    description: "Knusprig servierte Teigtaschen mit Dip.",
+    price: 6.5,
+  },
+  {
+    id: 5,
+    category: "Starter",
+    name: "Thung Thong",
+    description: "Frittierte Teigtaschen mit aromatischer Füllung.",
+    price: 5.5,
+  },
+  {
+    id: 6,
+    category: "Starter",
+    name: "Gung Tord",
+    description: "Frittierte Garnelen mit Sweet-Chili-Sauce.",
+    price: 6.0,
+  },
+  {
+    id: 7,
+    category: "Curry",
+    name: "Massaman Curry",
+    description: "Mild-würziges Curry mit Kokos, Kartoffeln und gerösteten Erdnussnoten.",
+    price: 13.9,
+  },
+  {
+    id: 8,
+    category: "Curry",
+    name: "Rotes Thai-Curry",
+    description: "Klassisch aromatisch, samtig und ausgewogen mit Gemüse und Reis.",
+    price: 12.9,
+    spicy: true,
+  },
+  {
+    id: 9,
+    category: "Wok",
+    name: "Bami Phad",
+    description: "Gebratene Eiernudeln aus dem Wok mit knackigem Gemüse.",
+    price: 12.5,
+  },
+  {
+    id: 10,
+    category: "Wok",
+    name: "Phad Sie Ew",
+    description: "Breite Reisnudeln mit dunkler Soja, Gemüse und Thai-Basilikum.",
+    price: 13.5,
+  },
+  {
+    id: 11,
+    category: "Rice",
+    name: "Khao Phad",
+    description: "Gebratener Jasminreis mit Ei, Gemüse und frischen Kräutern.",
+    price: 12.0,
+  },
+  {
+    id: 12,
+    category: "Dessert",
+    name: "Mango Sticky Rice",
+    description: "Süßer Klebreis mit Mango und Kokos.",
+    price: 6.9,
+  },
+];
+
+const aiFoodImages = [
+  {
+    title: "Thai Curry Signature",
+    src: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    title: "Wok Noodles Premium",
+    src: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    title: "Streetfood Bowl",
+    src: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=1200&q=80",
+  },
+];
+
+const categoryOrder = ["Alle", "Signature", "Starter", "Curry", "Wok", "Rice", "Dessert"];
+
+export default function ChangThaiKoelnWebsite() {
+  const [activeCategory, setActiveCategory] = useState("Alle");
+  const [cart, setCart] = useState([]);
+  const [serviceType, setServiceType] = useState("Lieferung");
+  const [guest, setGuest] = useState({
+    name: "",
+    phone: "",
+    address: "",
+    note: "",
+  });
+
+  const filteredMenu = useMemo(() => {
+    if (activeCategory === "Alle") return menu;
+    return menu.filter((item) => item.category === activeCategory);
+  }, [activeCategory]);
+
+  const addToCart = (item) => {
+    setCart((prev) => {
+      const exists = prev.find((entry) => entry.id === item.id);
+      if (exists) {
+        return prev.map((entry) =>
+          entry.id === item.id ? { ...entry, qty: entry.qty + 1 } : entry
+        );
       }
+      return [...prev, { ...item, qty: 1 }];
+    });
+  };
 
-      .menu-grid{
-        grid-template-columns:repeat(2, minmax(0,1fr));
-      }
+  const changeQty = (id, delta) => {
+    setCart((prev) =>
+      prev
+        .map((item) =>
+          item.id === id ? { ...item, qty: Math.max(0, item.qty + delta) } : item
+        )
+        .filter((item) => item.qty > 0)
+    );
+  };
 
-      .grid-3{
-        grid-template-columns:1fr;
-      }
-    }
+  const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const deliveryFee = serviceType === "Lieferung" && cart.length > 0 ? 2.5 : 0;
+  const total = subtotal + deliveryFee;
+  const itemCount = cart.reduce((sum, item) => sum + item.qty, 0);
 
-    @media (max-width: 760px){
-      .container{width:min(var(--max), calc(100% - 22px))}
-      .nav{padding:10px 0}
-      .nav-links{display:none}
-      .hero{padding-top:34px}
-      .hero-copy,
-      .contact-card,
-      .about-copy{padding:22px}
-      .hero-stats,
-      .hero-cards,
-      .menu-grid{
-        grid-template-columns:1fr;
-      }
-      .hero h1{max-width:100%}
-      .about-image,
-      .hero-image,
-      .gallery-main,
-      .gallery-small{min-height:280px}
-    }
-  </style>
-</head>
-<body>
+  const whatsappMessage = encodeURIComponent(
+    [
+      "Hallo Chang Thai, ich möchte gerne bestellen:",
+      "",
+      ...cart.map((item) => `• ${item.qty}x ${item.name} – €${(item.price * item.qty).toFixed(2)}`),
+      "",
+      `Service: ${serviceType}`,
+      `Name: ${guest.name || "-"}`,
+      `Telefon: ${guest.phone || "-"}`,
+      `Adresse: ${serviceType === "Lieferung" ? guest.address || "-" : "Abholung"}`,
+      `Notiz: ${guest.note || "-"}`,
+      "",
+      `Gesamt: €${total.toFixed(2)}`,
+    ].join("\n")
+  );
 
-  <div class="nav-wrap">
-    <div class="container nav">
-      <a href="#top" class="brand" aria-label="Chang Thai Startseite">
-        <img src="images/changthai-logo.png" alt="Chang Thai Logo" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-        <div class="brand-fallback" style="display:none;">CT</div>
-        <div class="brand-copy">
-          <div class="brand-title">Chang Thai Köln</div>
-          <div class="brand-sub">Authentische Thai-Küche in Köln-Sülz</div>
-        </div>
-      </a>
+  const whatsappLink = `https://wa.me/4922129966093?text=${whatsappMessage}`;
 
-      <nav class="nav-links" aria-label="Hauptnavigation">
-        <a href="#ueber-uns">Über uns</a>
-        <a href="#spezialitaeten">Highlights</a>
-        <a href="#awards">Bekanntheit</a>
-        <a href="#kontakt">Kontakt</a>
-        <a class="nav-cta" href="https://changthai.koeln/lieferservice/" target="_blank" rel="noopener">Jetzt bestellen</a>
-      </nav>
-    </div>
-  </div>
+  return (
+    <div className="min-h-screen bg-[#0b0b0f] text-white">
+      <section className="relative overflow-hidden border-b border-white/10 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.18),transparent_30%),radial-gradient(circle_at_left,rgba(234,88,12,0.14),transparent_22%),linear-gradient(135deg,#09090b_0%,#111114_45%,#17171d_100%)]">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:44px_44px] opacity-20" />
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-8 lg:grid-cols-[1.1fr_0.9fr] lg:px-10 lg:py-14">
+          <div className="flex flex-col justify-center">
+            <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
+              <Badge className="mb-5 rounded-full border border-amber-400/30 bg-amber-400/10 px-4 py-1.5 text-amber-200 hover:bg-amber-400/10">
+                Thai Streetfood • Köln Sülz • Bestellen & Abholen
+              </Badge>
+              <h1 className="max-w-3xl text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-7xl">
+                Chang Thai Köln – moderne Restaurant-Website mit Premium-Look und Bestellsystem
+              </h1>
+              <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-300 sm:text-lg">
+                Authentische Thai-Küche, starke Curry-Kompetenz, schneller Bestellfluss und ein visuelles Konzept, das Social-Media-Energie mit einer luxuriösen Food-Branding-Ästhetik verbindet.
+              </p>
+            </motion.div>
 
-  <main id="top">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <div class="eyebrow">Bekannt aus Kabel Eins · Authentisch · Köln-Sülz</div>
-          <h1 class="display">Thailand in Köln. <span>Echt, modern und unverwechselbar.</span></h1>
-          <p>
-            Chang Thai steht für authentische thailändische Küche mit Charakter:
-            frisch, intensiv, schnell und ehrlich. Diese Website positioniert das Restaurant
-            nicht wie einen gewöhnlichen Lieferdienst, sondern wie eine lokale Marke mit Wiedererkennung,
-            starker Story und echter Qualität.
-          </p>
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.1 }}
+              className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
+            >
+              {[
+                { icon: MapPin, label: "Adresse", value: "Berrenrather Str. 196, 50939 Köln" },
+                { icon: Phone, label: "Telefon", value: "+49 221 299 660 93" },
+                { icon: Clock3, label: "Heute", value: "Mo–Sa 11:30–22:00 · So 14:00–22:00" },
+                { icon: Award, label: "Bekannt aus", value: "Mein Lokal, Dein Lokal / Kabel Eins" },
+              ].map((item, index) => (
+                <Card key={index} className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
+                  <CardContent className="p-4">
+                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-400/15 text-amber-300">
+                      <item.icon className="h-5 w-5" />
+                    </div>
+                    <div className="text-xs uppercase tracking-[0.22em] text-zinc-400">{item.label}</div>
+                    <div className="mt-1 text-sm font-semibold leading-6 text-white">{item.value}</div>
+                  </CardContent>
+                </Card>
+              ))}
+            </motion.div>
 
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="https://changthai.koeln/lieferservice/" target="_blank" rel="noopener">Online bestellen</a>
-            <a class="btn btn-secondary" href="#kontakt">Kontakt & Öffnungszeiten</a>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild className="rounded-2xl bg-amber-500 px-6 py-6 text-black hover:bg-amber-400">
+                <a href="#bestellen">Jetzt bestellen</a>
+              </Button>
+              <Button asChild variant="outline" className="rounded-2xl border-white/20 bg-white/5 px-6 py-6 text-white hover:bg-white/10">
+                <a href="https://www.instagram.com/changthai.koeln/" target="_blank" rel="noreferrer">
+                  Instagram ansehen <Instagram className="ml-2 h-4 w-4" />
+                </a>
+              </Button>
+            </div>
           </div>
 
-          <div class="hero-stats">
-            <div class="stat">
-              <strong>Kabel Eins</strong>
-              <span>Bekannt aus „Mein Lokal, Dein Lokal“ mit Fokus auf Curry-Kompetenz</span>
+          <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7 }} className="grid gap-4 sm:grid-cols-2 sm:grid-rows-2">
+            <div className="sm:col-span-2 overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl shadow-amber-950/30">
+              <img src={aiFoodImages[0].src} alt={aiFoodImages[0].title} className="h-[320px] w-full object-cover" />
             </div>
-            <div class="stat">
-              <strong>Mehrweg Heroes</strong>
-              <span>VYTAL-Auszeichnung für nachhaltiges Verpackungs-Engagement</span>
+            <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5">
+              <img src={aiFoodImages[1].src} alt={aiFoodImages[1].title} className="h-[220px] w-full object-cover" />
             </div>
-            <div class="stat">
-              <strong>Sülz</strong>
-              <span>Starker Standort mit Stammkundschaft und lokaler Sichtbarkeit</span>
+            <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5">
+              <img src={aiFoodImages[2].src} alt={aiFoodImages[2].title} className="h-[220px] w-full object-cover" />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
+        <div className="grid gap-6 lg:grid-cols-3">
+          {[
+            {
+              icon: ChefHat,
+              title: "Branding mit Appetit-Effekt",
+              text: "Große Food-Visuals, cineastische Lichtstimmung und ein Premium-Look, der direkt Conversion erzeugt.",
+            },
+            {
+              icon: Flame,
+              title: "Menülogik wie im Delivery-Flow",
+              text: "Klare Kategorien, starke Signatures, intuitive Mengenanpassung und reduzierte Klickwege bis zur Bestellung.",
+            },
+            {
+              icon: Star,
+              title: "Ideal für Social & Ads",
+              text: "Die Struktur ist so gebaut, dass Reels, Instagram-Traffic und lokale Google-Suchen sauber auf Bestellungen einzahlen.",
+            },
+          ].map((feature, index) => (
+            <motion.div key={index} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.45, delay: index * 0.08 }}>
+              <Card className="h-full rounded-[2rem] border border-white/10 bg-white/[0.04] shadow-xl shadow-black/20">
+                <CardContent className="p-7">
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-400/15 text-amber-300">
+                    <feature.icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-xl font-bold">{feature.title}</h3>
+                  <p className="mt-3 leading-7 text-zinc-300">{feature.text}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      <section className="border-y border-white/10 bg-white/[0.03]">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <div className="text-sm uppercase tracking-[0.26em] text-amber-300">Speisekarte</div>
+              <h2 className="mt-2 text-3xl font-black sm:text-4xl">Modernes Online-Bestellsystem für Chang Thai</h2>
+            </div>
+            <div className="text-sm text-zinc-400">Frontend-Demo mit Warenkorb, Abholung/Lieferung und WhatsApp-Checkout</div>
+          </div>
+
+          <div className="mt-8">
+            <Tabs value={activeCategory} onValueChange={setActiveCategory}>
+              <TabsList className="flex h-auto w-full flex-wrap justify-start gap-2 bg-transparent p-0">
+                {categoryOrder.map((cat) => (
+                  <TabsTrigger key={cat} value={cat} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-zinc-200 data-[state=active]:border-amber-400/40 data-[state=active]:bg-amber-400/15 data-[state=active]:text-amber-100">
+                    {cat}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
+          </div>
+
+          <div id="bestellen" className="mt-8 grid gap-8 xl:grid-cols-[1.1fr_0.9fr]">
+            <div className="grid gap-4 md:grid-cols-2">
+              {filteredMenu.map((item) => (
+                <motion.div key={item.id} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.35 }}>
+                  <Card className="h-full rounded-[2rem] border border-white/10 bg-[#111117] shadow-lg shadow-black/20">
+                    <CardContent className="flex h-full flex-col p-6">
+                      <div className="flex flex-wrap gap-2">
+                        <Badge className="rounded-full bg-white/8 text-zinc-200 hover:bg-white/8">{item.category}</Badge>
+                        {item.bestseller && <Badge className="rounded-full bg-amber-400/15 text-amber-200 hover:bg-amber-400/15">Bestseller</Badge>}
+                        {item.spicy && <Badge className="rounded-full bg-orange-500/15 text-orange-200 hover:bg-orange-500/15">Scharf</Badge>}
+                      </div>
+                      <h3 className="mt-4 text-2xl font-bold">{item.name}</h3>
+                      <p className="mt-3 flex-1 leading-7 text-zinc-300">{item.description}</p>
+                      <div className="mt-6 flex items-center justify-between">
+                        <div className="text-xl font-black text-amber-300">€ {item.price.toFixed(2)}</div>
+                        <Button onClick={() => addToCart(item)} className="rounded-2xl bg-white text-black hover:bg-zinc-200">
+                          Hinzufügen <Plus className="ml-2 h-4 w-4" />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+
+            <div>
+              <Card className="sticky top-6 rounded-[2rem] border border-amber-400/20 bg-[linear-gradient(180deg,rgba(245,158,11,0.09),rgba(255,255,255,0.04))] shadow-2xl shadow-amber-950/20">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-sm uppercase tracking-[0.22em] text-amber-300">Warenkorb</div>
+                      <h3 className="mt-2 text-2xl font-black">Deine Bestellung</h3>
+                    </div>
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-black/30 text-amber-300">
+                      <ShoppingCart className="h-5 w-5" />
+                    </div>
+                  </div>
+
+                  <div className="mt-6 grid grid-cols-2 gap-3">
+                    <Button type="button" onClick={() => setServiceType("Lieferung")} className={`rounded-2xl py-6 ${serviceType === "Lieferung" ? "bg-amber-500 text-black hover:bg-amber-400" : "bg-white/5 text-white hover:bg-white/10"}`}>
+                      <Truck className="mr-2 h-4 w-4" /> Lieferung
+                    </Button>
+                    <Button type="button" onClick={() => setServiceType("Abholung")} className={`rounded-2xl py-6 ${serviceType === "Abholung" ? "bg-amber-500 text-black hover:bg-amber-400" : "bg-white/5 text-white hover:bg-white/10"}`}>
+                      <Store className="mr-2 h-4 w-4" /> Abholung
+                    </Button>
+                  </div>
+
+                  <div className="mt-6 space-y-3">
+                    {cart.length === 0 ? (
+                      <div className="rounded-2xl border border-dashed border-white/15 bg-black/20 p-5 text-sm leading-7 text-zinc-400">
+                        Noch keine Gerichte im Warenkorb. Wähle links Produkte aus dem Menü aus.
+                      </div>
+                    ) : (
+                      cart.map((item) => (
+                        <div key={item.id} className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                          <div className="flex items-start justify-between gap-4">
+                            <div>
+                              <div className="font-semibold text-white">{item.name}</div>
+                              <div className="text-sm text-zinc-400">€ {(item.price * item.qty).toFixed(2)}</div>
+                            </div>
+                            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 p-1">
+                              <button onClick={() => changeQty(item.id, -1)} className="rounded-full p-1 text-zinc-300 hover:bg-white/10"><Minus className="h-4 w-4" /></button>
+                              <span className="min-w-[24px] text-center text-sm font-bold">{item.qty}</span>
+                              <button onClick={() => changeQty(item.id, 1)} className="rounded-full p-1 text-zinc-300 hover:bg-white/10"><Plus className="h-4 w-4" /></button>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+
+                  <div className="mt-6 space-y-3">
+                    <Input placeholder="Name" value={guest.name} onChange={(e) => setGuest({ ...guest, name: e.target.value })} className="h-12 rounded-2xl border-white/10 bg-black/25 text-white placeholder:text-zinc-500" />
+                    <Input placeholder="Telefon" value={guest.phone} onChange={(e) => setGuest({ ...guest, phone: e.target.value })} className="h-12 rounded-2xl border-white/10 bg-black/25 text-white placeholder:text-zinc-500" />
+                    {serviceType === "Lieferung" && (
+                      <Input placeholder="Lieferadresse" value={guest.address} onChange={(e) => setGuest({ ...guest, address: e.target.value })} className="h-12 rounded-2xl border-white/10 bg-black/25 text-white placeholder:text-zinc-500" />
+                    )}
+                    <Textarea placeholder="Extra Wünsche / Hinweise" value={guest.note} onChange={(e) => setGuest({ ...guest, note: e.target.value })} className="min-h-[110px] rounded-2xl border-white/10 bg-black/25 text-white placeholder:text-zinc-500" />
+                  </div>
+
+                  <div className="mt-6 rounded-[1.5rem] border border-white/10 bg-black/25 p-4 text-sm">
+                    <div className="flex items-center justify-between py-1 text-zinc-300"><span>Artikel</span><span>{itemCount}</span></div>
+                    <div className="flex items-center justify-between py-1 text-zinc-300"><span>Zwischensumme</span><span>€ {subtotal.toFixed(2)}</span></div>
+                    <div className="flex items-center justify-between py-1 text-zinc-300"><span>Liefergebühr</span><span>€ {deliveryFee.toFixed(2)}</span></div>
+                    <div className="mt-2 flex items-center justify-between border-t border-white/10 pt-3 text-base font-black text-white"><span>Gesamt</span><span>€ {total.toFixed(2)}</span></div>
+                  </div>
+
+                  <div className="mt-6 grid gap-3">
+                    <Button asChild disabled={cart.length === 0} className="h-14 rounded-2xl bg-amber-500 text-base font-bold text-black hover:bg-amber-400 disabled:cursor-not-allowed disabled:opacity-50">
+                      <a href={whatsappLink} target="_blank" rel="noreferrer">Bestellung per WhatsApp senden</a>
+                    </Button>
+                    <Button variant="outline" className="h-14 rounded-2xl border-white/15 bg-white/5 text-white hover:bg-white/10">
+                      Online-Zahlung / Lieferando API später integrierbar
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
+      </section>
 
-        <div class="hero-visual">
-          <div class="hero-image">
-            <div class="hero-overlay">
-              <div class="tag">Signature Experience</div>
-              <h3 class="display">Streetfood-Energie trifft echte Thai-Küche</h3>
+      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
+        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+          <div>
+            <div className="text-sm uppercase tracking-[0.26em] text-amber-300">Warum dieses Konzept funktioniert</div>
+            <h2 className="mt-2 text-3xl font-black sm:text-4xl">Eine Website, die nicht nur gut aussieht, sondern Bestellungen zieht</h2>
+            <div className="mt-6 space-y-4 text-zinc-300">
               <p>
-                Ersetze dieses Hero-Bild durch ein starkes Chang-Thai-Foto von der Originalseite
-                oder aus dem Instagram-Auftritt – am besten Außenansicht, Küche oder Signature-Dish.
+                Das Design setzt auf starke Kontraste, warme Gold-/Chili-Akzente und eine Restaurant-Dramatik, die Premium-Qualität mit Streetfood-Schnelligkeit kombiniert.
+              </p>
+              <p>
+                Der Aufbau ist conversion-orientiert: Hero mit klarer Value Proposition, Social Proof, Menü als interaktiver Katalog und ein direkt integrierter Warenkorb statt eines losgelösten Formulars.
+              </p>
+              <p>
+                Für den Live-Betrieb lässt sich dieses Frontend sehr sauber an WooCommerce, Stripe, SumUp, Shopify Lite oder eine Liefer-/Pickup-API anbinden.
               </p>
             </div>
           </div>
 
-          <div class="hero-cards">
-            <div class="mini-card">
-              <span class="small-tag">Standort</span>
-              <h4>Berrenrather Straße 196</h4>
-              <p>50937 Köln · zentral in Sülz gelegen · direkt erreichbar für Abholung und Lieferung.</p>
-            </div>
-            <div class="mini-card">
-              <span class="small-tag">Bestellung</span>
-              <h4>Schnell, direkt, digital</h4>
-              <p>Klare Conversion über Lieferservice, Telefon und Social-Präsenz statt unnötiger Umwege.</p>
-            </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {[
+              "Mobile First für lokale Google- und Instagram-Trafficspitzen",
+              "Schneller Bestellfluss mit wenig Reibung",
+              "Premium-Look statt klassischer Imbiss-Optik",
+              "Ideal für Reels, Ads und QR-Code-Kampagnen",
+              "Menü jederzeit erweiterbar",
+              "Später mit echter Online-Zahlung skalierbar",
+            ].map((item, index) => (
+              <Card key={index} className="rounded-[1.75rem] border border-white/10 bg-white/[0.04]">
+                <CardContent className="flex items-start gap-3 p-5">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 text-amber-300" />
+                  <div className="leading-7 text-zinc-200">{item}</div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
+      <footer className="border-t border-white/10 bg-black/40">
+        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-10 lg:grid-cols-4 lg:px-10">
+          <div className="lg:col-span-2">
+            <div className="text-2xl font-black tracking-tight">Chang Thai Köln</div>
+            <p className="mt-3 max-w-xl leading-7 text-zinc-400">
+              Moderne Konzept-Website mit Bestellsystem, Social-Proof-Struktur und hochwertigem Food-Fokus für einen starken lokalen Auftritt in Köln.
+            </p>
+          </div>
           <div>
-            <div class="section-kicker">Was die Marke stark macht</div>
-            <h2>Eine moderne Gastro-Seite mit echtem Profil</h2>
-            <p>
-              Die Seite soll nicht billig oder austauschbar wirken, sondern Chang Thai als feste,
-              bekannte Adresse für authentische Thai-Küche in Köln inszenieren.
-            </p>
-          </div>
-        </div>
-
-        <div class="grid-3">
-          <article class="card feature-card">
-            <div class="feature-icon">01</div>
-            <h3>Authentizität statt Klischee</h3>
-            <p>
-              Keine generische Asia-Optik, sondern ein markanter, hochwertiger Look mit echter
-              Persönlichkeit und Fokus auf das, wofür Chang Thai bekannt ist.
-            </p>
-          </article>
-
-          <article class="card feature-card">
-            <div class="feature-icon">02</div>
-            <h3>Bekanntheit sichtbar gemacht</h3>
-            <p>
-              Der Bezug zu Kabel Eins und die VYTAL-Auszeichnung werden prominent platziert,
-              damit Vertrauen und Wiedererkennung direkt aufgebaut werden.
-            </p>
-          </article>
-
-          <article class="card feature-card">
-            <div class="feature-icon">03</div>
-            <h3>Bestellen ohne Reibung</h3>
-            <p>
-              Öffnungszeiten, Kontakt, Standort und Bestell-CTA stehen im Vordergrund,
-              damit Gäste sofort ins Handeln kommen.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="ueber-uns">
-      <div class="container about-grid">
-        <div class="card about-image"></div>
-
-        <div class="card about-copy">
-          <div class="section-kicker">Über Chang Thai</div>
-          <h2>Authentische Thai-Küche mitten in Köln-Sülz</h2>
-          <p>
-            Chang Thai verbindet bodenständige, schnelle Gastronomie mit echter thailändischer Würze,
-            beliebten Klassikern und starken Signature-Gerichten. Genau das sollte die Website transportieren:
-            nicht überladen, sondern klar, appetitlich und professionell.
-          </p>
-          <p>
-            Ob Curry, Wokgerichte, Suppen oder gebratene Nudeln – der Auftritt soll Lust auf Bestellung machen
-            und gleichzeitig die lokale Bekanntheit der Marke stärken.
-          </p>
-
-          <div class="info-list">
-            <div class="info-item">
-              <strong>Adresse</strong>
-              <span>Berrenrather Straße 196, 50937 Köln</span>
-            </div>
-            <div class="info-item">
-              <strong>Telefon</strong>
-              <span><a href="tel:+4922129966093">0221 299 660 93</a></span>
-            </div>
-            <div class="info-item">
-              <strong>E-Mail</strong>
-              <span><a href="mailto:info@changthai.koeln">info@changthai.koeln</a></span>
-            </div>
-            <div class="info-item">
-              <strong>Öffnungszeiten</strong>
-              <span>Mo–Sa 11:30–22:00 Uhr · So & Feiertage 14:00–22:00 Uhr</span>
+            <div className="font-semibold text-white">Kontakt</div>
+            <div className="mt-3 space-y-2 text-zinc-400">
+              <div>Berrenrather Str. 196, 50939 Köln</div>
+              <div>+49 221 299 660 93</div>
+              <div>info@changthai.koeln</div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="spezialitaeten">
-      <div class="container">
-        <div class="section-head">
           <div>
-            <div class="section-kicker">Speisekarten-Highlights</div>
-            <h2>Gerichte, die verkaufen</h2>
-            <p>
-              Statt die Startseite mit einer riesigen Karte zu überladen, werden hier ausgewählte
-              Highlights prominent inszeniert – mit echten Chang-Thai-Gerichten und öffentlich auffindbaren Preisen.
-            </p>
-          </div>
-        </div>
-
-        <div class="menu-grid">
-          <article class="menu-card">
-            <div class="menu-top">
-              <span class="menu-tag">Fingerfood</span>
-              <span class="price">6,50 €</span>
-            </div>
-            <h3>Popia Tord</h3>
-            <p>
-              Frittierte Thai-Frühlingsrollen mit Gemüse und Süß-Sauer-Sauce.
-              Ein idealer Einstieg und optisch stark für Social Media und Website.
-            </p>
-            <div class="meta">Perfekt als Vorspeise</div>
-          </article>
-
-          <article class="menu-card">
-            <div class="menu-top">
-              <span class="menu-tag">Wokgericht</span>
-              <span class="price">12,00 €</span>
-            </div>
-            <h3>Gai Pad Himapan</h3>
-            <p>
-              Gebratenes Hühnerfleisch mit Paprika, Champignons, Möhren, Zwiebeln,
-              Bambus, Morcheln und Cashewnüssen.
-            </p>
-            <div class="meta">Starker Signature-Kandidat</div>
-          </article>
-
-          <article class="menu-card">
-            <div class="menu-top">
-              <span class="menu-tag">Curry</span>
-              <span class="price">14,00 €</span>
-            </div>
-            <h3>Gaeng Kua Ped</h3>
-            <p>
-              Knusprige Ente in rotem Curry mit Kokosmilch, Litschi, Ananas und Paprika.
-              Premium-Wirkung und ideal für den Bezug zu Kabel Eins.
-            </p>
-            <div class="meta">Visuell und geschmacklich stark</div>
-          </article>
-
-          <article class="menu-card">
-            <div class="menu-top">
-              <span class="menu-tag">Hauptgericht</span>
-              <span class="price">12,00 €</span>
-            </div>
-            <h3>Phad Pak mit Hühnerfleisch</h3>
-            <p>
-              Gebratenes Gemüse mit Hühnerfleisch – zugänglich, frisch und ein perfektes
-              Everyday-Gericht für Stammkundschaft und Mittagsgeschäft.
-            </p>
-            <div class="meta">Klar, frisch, beliebt</div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <div class="section-kicker">Bilder & Atmosphäre</div>
-            <h2>Galerie mit echten Chang-Thai-Motiven</h2>
-            <p>
-              Lege hier die Originalfotos aus dem Chang-Thai-Auftritt ab. Für eine Premium-Wirkung
-              sollten es echte Gerichte, Ladenansichten, Küche oder Teamfotos sein – keine Stockfotos.
-            </p>
-          </div>
-        </div>
-
-        <div class="gallery-grid">
-          <div class="card gallery-main">
-            <div class="gallery-caption">
-              <strong>Signature Dish / Hero-Motiv</strong>
-              <span>Datei: <code>images/changthai-signature-dish.jpg</code></span>
-            </div>
-          </div>
-
-          <div class="gallery-side">
-            <div class="card gallery-small one">
-              <div class="gallery-caption">
-                <strong>Interior / Counter / Küche</strong>
-                <span>Datei: <code>images/changthai-dish-1.jpg</code></span>
-              </div>
-            </div>
-
-            <div class="card gallery-small two">
-              <div class="gallery-caption">
-                <strong>Weitere Dish- oder Außenaufnahme</strong>
-                <span>Datei: <code>images/changthai-dish-2.jpg</code></span>
-              </div>
+            <div className="font-semibold text-white">Links</div>
+            <div className="mt-3 space-y-2 text-zinc-400">
+              <a className="flex items-center gap-2 hover:text-white" href="https://changthai.koeln/" target="_blank" rel="noreferrer">Offizielle Website <ExternalLink className="h-4 w-4" /></a>
+              <a className="flex items-center gap-2 hover:text-white" href="https://changthai.koeln/shop/" target="_blank" rel="noreferrer">Shop / Bestellung <ExternalLink className="h-4 w-4" /></a>
+              <a className="flex items-center gap-2 hover:text-white" href="https://www.instagram.com/changthai.koeln/" target="_blank" rel="noreferrer">Instagram <Instagram className="h-4 w-4" /></a>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="section" id="awards">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <div class="section-kicker">Bekanntheit & Auszeichnung</div>
-            <h2>Vertrauen, das man zeigen sollte</h2>
-            <p>
-              Die stärksten öffentlich belegbaren Vertrauenssignale gehören sichtbar auf die Startseite –
-              weil sie Chang Thai klar von gewöhnlichen Lieferseiten abheben.
-            </p>
-          </div>
-        </div>
-
-        <div class="awards-grid">
-          <article class="award-card">
-            <div class="award-tag">TV-Auftritt</div>
-            <h3>Bekannt aus „Mein Lokal, Dein Lokal“</h3>
-            <p>
-              Chang Thai taucht im Kabel-Eins-Umfeld von „Mein Lokal, Dein Lokal“ im Zusammenhang
-              mit Curry-Gerichten in Köln auf. Das ist ein starkes Wiedererkennungsmerkmal für die Website.
-            </p>
-          </article>
-
-          <article class="award-card">
-            <div class="award-tag">Nachhaltigkeit</div>
-            <h3>VYTAL Mehrweg Heroes 2022</h3>
-            <p>
-              Chang Thai wurde von VYTAL als einer der Top-10-Partner ausgezeichnet,
-              die besonders viel Einwegplastik und CO₂ eingespart haben.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="kontakt">
-      <div class="container contact-wrap">
-        <div class="contact-card">
-          <div class="section-kicker">Kontakt & Bestellung</div>
-          <h2>Direkt erreichbar. Direkt bestellbar.</h2>
-          <p>
-            Alles, was ein Gast braucht, ist sofort verfügbar: Adresse, Öffnungszeiten,
-            direkter Kontakt und klare Weiterleitung zum Bestellsystem.
-          </p>
-
-          <div class="contact-grid">
-            <div class="contact-item">
-              <strong>Adresse</strong>
-              <span>Berrenrather Straße 196, 50937 Köln</span>
-            </div>
-            <div class="contact-item">
-              <strong>Telefon</strong>
-              <span><a href="tel:+4922129966093">0221 299 660 93</a></span>
-            </div>
-            <div class="contact-item">
-              <strong>E-Mail</strong>
-              <span><a href="mailto:info@changthai.koeln">info@changthai.koeln</a></span>
-            </div>
-            <div class="contact-item">
-              <strong>Öffnungszeiten</strong>
-              <span>Montag bis Samstag 11:30–22:00 Uhr · Sonntag & Feiertage 14:00–22:00 Uhr</span>
-            </div>
-            <div class="contact-item">
-              <strong>Instagram</strong>
-              <span><a href="https://www.instagram.com/changthai.koeln/" target="_blank" rel="noopener">@changthai.koeln</a></span>
-            </div>
-          </div>
-
-          <div class="hero-actions" style="margin-bottom:0;">
-            <a class="btn btn-primary" href="https://changthai.koeln/lieferservice/" target="_blank" rel="noopener">Zum Lieferservice</a>
-            <a class="btn btn-secondary" href="tel:+4922129966093">Jetzt anrufen</a>
-          </div>
-        </div>
-
-        <div class="map-card">
-          <iframe
-            title="Karte zu Chang Thai Köln"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps?q=Berrenrather%20Stra%C3%9Fe%20196%2C%2050937%20K%C3%B6ln&z=15&output=embed">
-          </iframe>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container footer-wrap">
-      <div>© 2026 Chang Thai Köln · Moderne Webpräsenz für authentische Thai-Küche in Sülz</div>
-      <div>Bestellung über changthai.koeln · Social: @changthai.koeln</div>
+      </footer>
     </div>
-  </footer>
-
-</body>
-</html>
+  );
+}
