@@ -495,6 +495,43 @@
       font-size:1.02rem;
     }
 
+    /* Ovale weiße Hintergrundform für die großen Überschriften */
+    .section-head.section-head-oval{
+      display:flex;
+      justify-content:center;
+      align-items:stretch;
+      margin-bottom:30px;
+    }
+
+    .text-oval{
+      width:min(100%, 1160px);
+      background:rgba(255,255,255,.90);
+      border:1px solid rgba(184,128,20,.14);
+      border-radius:999px;
+      padding:38px 54px;
+      box-shadow:0 20px 50px rgba(84,60,12,.08);
+      backdrop-filter:blur(6px);
+      text-align:left;
+    }
+
+    .text-oval.text-oval-lg{
+      padding:42px 58px;
+    }
+
+    .text-oval h2{
+      margin:10px 0 16px;
+      font-size:clamp(2.8rem, 5vw, 5.2rem);
+      line-height:.92;
+    }
+
+    .text-oval p{
+      max-width:980px;
+      margin:0;
+      font-size:clamp(1.02rem, 1.5vw, 1.18rem);
+      line-height:1.75;
+      color:var(--muted);
+    }
+
     .story-grid{
       display:grid;
       grid-template-columns:1.05fr .95fr;
@@ -1267,6 +1304,21 @@
       body{
         background-size:280px auto;
       }
+
+      .section-head.section-head-oval{
+        justify-content:stretch;
+      }
+
+      .text-oval,
+      .text-oval.text-oval-lg{
+        width:100%;
+        border-radius:40px;
+        padding:24px;
+      }
+
+      .text-oval h2{
+        font-size:clamp(2.1rem, 8vw, 3.4rem);
+      }
     }
 
     @media (max-width: 640px){
@@ -1320,6 +1372,12 @@
 
       body{
         background-size:220px auto;
+      }
+
+      .text-oval,
+      .text-oval.text-oval-lg{
+        padding:20px 18px;
+        border-radius:28px;
       }
     }
   </style>
@@ -1455,15 +1513,15 @@
 
     <section id="restaurant">
       <div class="container">
-        <div class="section-head">
-          <div>
+        <div class="section-head section-head-oval">
+          <div class="text-oval text-oval-lg">
             <span class="eyebrow">Restaurant</span>
             <h2>Thai-Aromen, moderne Atmosphäre, herzliche Gastfreundschaft</h2>
+            <p>
+              Chang Thai verbindet traditionelle thailändische Küche mit einem stilvollen Ambiente
+              und ist damit die richtige Adresse für entspanntes Essen, spontane Abholung oder die bequeme Online-Bestellung.
+            </p>
           </div>
-          <p>
-            Chang Thai verbindet traditionelle thailändische Küche mit einem stilvollen Ambiente
-            und ist damit die richtige Adresse für entspanntes Essen, spontane Abholung oder die bequeme Online-Bestellung.
-          </p>
         </div>
 
         <div class="story-grid">
@@ -1531,15 +1589,15 @@
 
     <section id="spezialitaeten">
       <div class="container">
-        <div class="section-head">
-          <div>
+        <div class="section-head section-head-oval">
+          <div class="text-oval text-oval-lg">
             <span class="eyebrow">Speisenprofil</span>
             <h2>Beliebte Klassiker der Thai-Küche</h2>
+            <p>
+              Die Speisekarte bietet eine große Auswahl an typisch thailändischen Gerichten –
+              frisch zubereitet und übersichtlich für die Online-Bestellung gegliedert.
+            </p>
           </div>
-          <p>
-            Die Speisekarte bietet eine große Auswahl an typisch thailändischen Gerichten –
-            frisch zubereitet und übersichtlich für die Online-Bestellung gegliedert.
-          </p>
         </div>
 
         <div class="menu-grid">
@@ -1580,15 +1638,15 @@
 
     <section id="ambiente">
       <div class="container">
-        <div class="section-head">
-          <div>
+        <div class="section-head section-head-oval">
+          <div class="text-oval text-oval-lg">
             <span class="eyebrow">Ambiente</span>
             <h2>Modern, warm und einladend</h2>
+            <p>
+              Das Interieur verbindet stilvolle Materialien, angenehmes Licht und markante Details
+              zu einer Atmosphäre, in der man sich sofort wohlfühlt.
+            </p>
           </div>
-          <p>
-            Das Interieur verbindet stilvolle Materialien, angenehmes Licht und markante Details
-            zu einer Atmosphäre, in der man sich sofort wohlfühlt.
-          </p>
         </div>
 
         <div class="gallery-grid">
@@ -1684,15 +1742,15 @@
 
     <section id="bestellen">
       <div class="container">
-        <div class="section-head">
-          <div>
+        <div class="section-head section-head-oval">
+          <div class="text-oval text-oval-lg">
             <span class="eyebrow">Bestellsystem</span>
             <h2>Online bestellen – direkt bei Chang Thai</h2>
+            <p>
+              Finde dein Gericht schnell über Kategorien oder Suche, stelle deine Bestellung zusammen
+              und sende sie bequem zur Abholung oder Lieferung.
+            </p>
           </div>
-          <p>
-            Finde dein Gericht schnell über Kategorien oder Suche, stelle deine Bestellung zusammen
-            und sende sie bequem zur Abholung oder Lieferung.
-          </p>
         </div>
 
         <div class="order-shell">
@@ -1783,15 +1841,15 @@
 
     <section id="anfahrt">
       <div class="container">
-        <div class="section-head">
-          <div>
+        <div class="section-head section-head-oval">
+          <div class="text-oval text-oval-lg">
             <span class="eyebrow">Standort</span>
             <h2>Hier findest du Chang Thai</h2>
+            <p>
+              Zentral in Köln-Sülz gelegen und gut erreichbar – ideal für den Restaurantbesuch,
+              die schnelle Abholung oder die Orientierung per Google Maps.
+            </p>
           </div>
-          <p>
-            Zentral in Köln-Sülz gelegen und gut erreichbar – ideal für den Restaurantbesuch,
-            die schnelle Abholung oder die Orientierung per Google Maps.
-          </p>
         </div>
 
         <div class="map-card">
@@ -1983,7 +2041,7 @@
       { suffix: "– vegetarisch mit Tofu", priceKey: "vegetarisch mit Tofu", tags: ["reis", "tofu"] }
     ];
 
-    curryBaseDishes.forEach((dish, dishIndex) => {
+    curryBaseDishes.forEach((dish) => {
       curryVariants.forEach((variant, variantIndex) => {
         const id = `${dish.prefix.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${variantIndex}`;
         menuData.find(c => c.category === "Currys & Hauptgerichte mit Reis").items.push({
