@@ -2415,7 +2415,7 @@
       }
     );
 
-    let currentCategory = "Alle";
+    let currentCategory = "Bestseller";
     let searchValue = "";
     let fulfillment = "Abholung";
     let cart = [];
@@ -2446,10 +2446,10 @@
     }
 
     function renderCategoryTabs(){
-      const categories = ["Alle", ...menuData.map(section => section.category)];
+      const categories = ["Bestseller", ...menuData.map(section => section.category)];
       categoryTabs.innerHTML = categories.map(cat => `
         <button class="category-tab ${cat === currentCategory ? "active" : ""}" data-category="${cat}" type="button">
-          ${cat}
+          ${cat === "Bestseller" ? "🔥 Bestseller" : cat}
         </button>
       `).join("");
 
@@ -2465,13 +2465,18 @@
     function renderMenu(){
       const filtered = allItems
         .filter(item => {
-          const matchesCategory = currentCategory === "Alle" || item.category === currentCategory;
+          const matchesCategory =
+            currentCategory === "Bestseller"
+              ? item.bestseller
+              : item.category === currentCategory;
+
           const q = searchValue.trim().toLowerCase();
           const matchesSearch = !q ||
             item.name.toLowerCase().includes(q) ||
             item.desc.toLowerCase().includes(q) ||
             item.tags.join(" ").toLowerCase().includes(q) ||
             item.category.toLowerCase().includes(q);
+
           return matchesCategory && matchesSearch;
         })
         .sort((a, b) => Number(b.bestseller) - Number(a.bestseller));
