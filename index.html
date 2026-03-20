@@ -7,11 +7,11 @@
   <title>Chang Thai Köln – Original Thaiküche in Sülz</title>
   <meta
     name="description"
-    content="Chang Thai in Köln-Sülz – stilvolle Original Thaiküche, Currys, Suppen, Nudelgerichte und Lieferservice. Entdecke das Restaurant, die Atmosphäre und bestelle direkt."
+    content="Chang Thai in Köln-Sülz – stilvolle Original Thaiküche, Currys, Suppen, Nudelgerichte und direkte Online-Bestellung mit modernem Bestellsystem."
   />
   <meta
     name="keywords"
-    content="Chang Thai Köln, Thai Restaurant Köln, Thaiküche Sülz, Berrenrather Straße 196, Thai Lieferservice Köln, Pad Thai Köln, Curry Köln"
+    content="Chang Thai Köln, Thai Restaurant Köln, Thaiküche Sülz, Berrenrather Straße 196, Thai Lieferservice Köln, Pad Thai Köln, Curry Köln, Online bestellen"
   />
   <meta name="theme-color" content="#ececec" />
 
@@ -37,7 +37,7 @@
       --shadow:0 20px 60px rgba(84,60,12,.12);
       --radius:24px;
       --radius-lg:34px;
-      --max:1240px;
+      --max:1280px;
     }
 
     *{box-sizing:border-box}
@@ -61,8 +61,7 @@
       position:fixed;
       inset:0;
       pointer-events:none;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.70) 0%, rgba(255,255,255,.76) 100%);
+      background:linear-gradient(180deg, rgba(255,255,255,.70) 0%, rgba(255,255,255,.76) 100%);
       z-index:0;
     }
 
@@ -298,6 +297,7 @@
       font-size:1rem;
       transition:.25s ease;
       border:1px solid transparent;
+      cursor:pointer;
     }
 
     .btn-primary{
@@ -333,7 +333,10 @@
     .section-card,
     .contact-card,
     .menu-card,
-    .gallery-card{
+    .gallery-card,
+    .order-shell,
+    .checkout-card,
+    .order-mini-card{
       border-radius:var(--radius);
       background:
         linear-gradient(180deg, rgba(255,255,255,.90), rgba(255,255,255,.80)),
@@ -601,7 +604,7 @@
 
     .cta-wrap{
       display:grid;
-      grid-template-columns:1.1fr .9fr;
+      grid-template-columns:1.05fr .95fr;
       gap:24px;
       align-items:stretch;
     }
@@ -641,22 +644,17 @@
       font-weight:700;
     }
 
-    .order-panel{
+    .order-mini-card{
       padding:30px;
-      border-radius:var(--radius);
       background:
         linear-gradient(180deg, rgba(212,164,55,.14), rgba(255,255,255,.88)),
         linear-gradient(180deg, #fffdf7, #fff9ef);
       border:1px solid rgba(184,128,20,.20);
-      box-shadow:var(--shadow);
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      position:relative;
       overflow:hidden;
+      position:relative;
     }
 
-    .order-panel::before{
+    .order-mini-card::before{
       content:"";
       position:absolute;
       width:280px;
@@ -667,21 +665,20 @@
       background:radial-gradient(circle, rgba(212,164,55,.20), transparent 68%);
     }
 
-    .order-panel h3{
+    .order-mini-card h3{
       margin:0 0 10px;
       font-family:"Cormorant Garamond", serif;
-      font-size:2.4rem;
+      font-size:2.45rem;
       line-height:1;
       color:#3c2a0e;
       position:relative;
       z-index:1;
     }
 
-    .order-panel p{
-      margin:0 0 22px;
+    .order-mini-card p{
+      margin:0 0 18px;
       color:rgba(42,29,8,.84);
       line-height:1.8;
-      max-width:480px;
       position:relative;
       z-index:1;
     }
@@ -707,6 +704,355 @@
       color:var(--gold);
       font-size:1.4rem;
       line-height:1;
+    }
+
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .pill{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(184,128,20,.16);
+      background:rgba(255,255,255,.75);
+      color:#6f5a2a;
+      font-weight:700;
+      font-size:.92rem;
+    }
+
+    .order-shell{
+      padding:30px;
+    }
+
+    .order-top{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:20px;
+      margin-bottom:22px;
+    }
+
+    .order-top-left,
+    .order-top-right{
+      padding:22px;
+      border-radius:22px;
+      background:rgba(255,255,255,.56);
+      border:1px solid rgba(184,128,20,.12);
+    }
+
+    .order-top-right{
+      display:grid;
+      gap:14px;
+      align-content:start;
+    }
+
+    .order-top h3{
+      margin:8px 0 10px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:2.4rem;
+      line-height:1;
+      color:#3c2a0e;
+    }
+
+    .order-top p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.8;
+    }
+
+    .fulfillment-switch{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:16px;
+    }
+
+    .switch-btn{
+      min-height:48px;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid rgba(184,128,20,.18);
+      background:rgba(255,255,255,.82);
+      color:#6f5a2a;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .switch-btn.active{
+      background:linear-gradient(135deg, var(--gold) 0%, var(--gold-strong) 100%);
+      color:#fff;
+      box-shadow:0 10px 25px rgba(184,128,20,.16);
+    }
+
+    .search-wrap{
+      position:relative;
+    }
+
+    .search-input{
+      width:100%;
+      min-height:54px;
+      border-radius:18px;
+      border:1px solid rgba(184,128,20,.16);
+      background:rgba(255,255,255,.92);
+      padding:0 16px;
+      font:inherit;
+      color:var(--text);
+      outline:none;
+    }
+
+    .search-input:focus{
+      border-color:rgba(184,128,20,.40);
+      box-shadow:0 0 0 4px rgba(184,128,20,.08);
+    }
+
+    .category-tabs{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 0 22px;
+    }
+
+    .category-tab{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(184,128,20,.14);
+      background:rgba(255,255,255,.72);
+      color:#6f5a2a;
+      font-weight:800;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+
+    .category-tab.active{
+      background:linear-gradient(135deg, var(--gold) 0%, var(--gold-strong) 100%);
+      border-color:transparent;
+      color:#fff;
+    }
+
+    .order-layout{
+      display:grid;
+      grid-template-columns:minmax(0, 1.2fr) minmax(300px, .8fr);
+      gap:20px;
+      align-items:start;
+    }
+
+    .menu-list{
+      display:grid;
+      gap:14px;
+    }
+
+    .menu-item{
+      padding:20px;
+      border-radius:22px;
+      background:rgba(255,255,255,.70);
+      border:1px solid rgba(184,128,20,.12);
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:16px;
+      align-items:center;
+    }
+
+    .menu-item h4{
+      margin:0 0 8px;
+      font-size:1.1rem;
+      color:#35250d;
+    }
+
+    .menu-item p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.65;
+      font-size:.96rem;
+    }
+
+    .menu-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .tag{
+      padding:7px 10px;
+      border-radius:999px;
+      background:rgba(184,128,20,.08);
+      color:var(--gold);
+      font-size:.78rem;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .menu-buy{
+      display:grid;
+      gap:10px;
+      justify-items:end;
+      min-width:118px;
+    }
+
+    .price{
+      font-weight:900;
+      font-size:1.18rem;
+      color:#2a1d08;
+    }
+
+    .mini-btn{
+      min-height:42px;
+      padding:0 16px;
+      border:none;
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--gold) 0%, var(--gold-strong) 100%);
+      color:#fff;
+      font-weight:800;
+      cursor:pointer;
+      box-shadow:0 10px 24px rgba(184,128,20,.16);
+    }
+
+    .checkout-card{
+      padding:22px;
+      position:sticky;
+      top:104px;
+      background:
+        linear-gradient(180deg, rgba(212,164,55,.12), rgba(255,255,255,.92)),
+        linear-gradient(180deg, #fffef9, #fff9ef);
+    }
+
+    .checkout-card h3{
+      margin:6px 0 8px;
+      font-family:"Cormorant Garamond", serif;
+      font-size:2rem;
+      line-height:1;
+      color:#3c2a0e;
+    }
+
+    .checkout-card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:.95rem;
+    }
+
+    .cart-list{
+      display:grid;
+      gap:12px;
+      margin:18px 0;
+      max-height:360px;
+      overflow:auto;
+      padding-right:4px;
+    }
+
+    .cart-item{
+      padding:14px;
+      border-radius:18px;
+      background:rgba(255,255,255,.74);
+      border:1px solid rgba(184,128,20,.12);
+      display:grid;
+      gap:8px;
+    }
+
+    .cart-item-head{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+    }
+
+    .cart-item-name{
+      font-weight:800;
+      color:#35250d;
+      line-height:1.45;
+    }
+
+    .cart-controls{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+
+    .qty-controls{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .qty-btn{
+      width:32px;
+      height:32px;
+      border-radius:50%;
+      border:none;
+      background:rgba(184,128,20,.10);
+      color:#6f5a2a;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .cart-summary{
+      display:grid;
+      gap:10px;
+      margin-top:12px;
+      padding-top:16px;
+      border-top:1px solid rgba(184,128,20,.14);
+    }
+
+    .summary-row{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      color:#4c3810;
+      font-weight:700;
+    }
+
+    .summary-row.total{
+      font-size:1.08rem;
+      color:#2a1d08;
+      font-weight:900;
+    }
+
+    .order-form{
+      display:grid;
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .field,
+    .select{
+      width:100%;
+      min-height:48px;
+      border-radius:16px;
+      border:1px solid rgba(184,128,20,.14);
+      background:rgba(255,255,255,.94);
+      padding:0 14px;
+      font:inherit;
+      color:var(--text);
+      outline:none;
+    }
+
+    textarea.field{
+      min-height:96px;
+      padding:14px;
+      resize:vertical;
+    }
+
+    .checkout-note{
+      margin-top:14px;
+      padding:14px;
+      border-radius:16px;
+      background:rgba(184,128,20,.08);
+      color:#6a511f;
+      font-size:.9rem;
+      line-height:1.6;
+      border:1px solid rgba(184,128,20,.10);
+    }
+
+    .empty-state{
+      padding:26px;
+      border-radius:22px;
+      background:rgba(255,255,255,.68);
+      border:1px dashed rgba(184,128,20,.24);
+      color:var(--muted);
+      line-height:1.8;
     }
 
     .footer{
@@ -751,12 +1097,18 @@
     @media (max-width: 1180px){
       .hero-grid,
       .story-grid,
-      .cta-wrap{
+      .cta-wrap,
+      .order-top,
+      .order-layout{
         grid-template-columns:1fr;
       }
 
       .menu-grid{
         grid-template-columns:repeat(2, minmax(0,1fr));
+      }
+
+      .checkout-card{
+        position:static;
       }
     }
 
@@ -785,6 +1137,14 @@
       .contact-grid,
       .gallery-grid{
         grid-template-columns:1fr;
+      }
+
+      .menu-item{
+        grid-template-columns:1fr;
+      }
+
+      .menu-buy{
+        justify-items:start;
       }
 
       body{
@@ -826,7 +1186,9 @@
       .info-card,
       .contact-card,
       .menu-card,
-      .order-panel{
+      .order-shell,
+      .order-mini-card,
+      .checkout-card{
         padding:22px;
       }
 
@@ -862,7 +1224,7 @@
         <a href="#spezialitaeten">Spezialitäten</a>
         <a href="#ambiente">Ambiente</a>
         <a href="#kontakt">Kontakt</a>
-        <a class="cta" href="https://changthai.koeln/lieferservice/" target="_blank" rel="noopener noreferrer">Jetzt bestellen</a>
+        <a class="cta" href="#bestellen">Jetzt bestellen</a>
       </nav>
     </div>
   </header>
@@ -897,7 +1259,7 @@
             </p>
 
             <div class="hero-actions">
-              <a class="btn btn-primary" href="https://changthai.koeln/lieferservice/" target="_blank" rel="noopener noreferrer">Online bestellen</a>
+              <a class="btn btn-primary" href="#bestellen">Online bestellen</a>
               <a class="btn btn-secondary" href="#kontakt">Tisch & Kontakt</a>
             </div>
           </div>
@@ -940,7 +1302,7 @@
                 <div class="info-label">Bestellung</div>
                 <div class="info-value">
                   Lieferung & Abholung<br />
-                  direkt online möglich
+                  direkt auf dieser Seite
                 </div>
               </div>
             </div>
@@ -1006,8 +1368,8 @@
                 <span>Logo, Licht, Goldakzente und Bildsprache ergeben eine wiedererkennbare Identität mit Premium-Anmutung.</span>
               </div>
               <div class="mini-point">
-                <strong>TV-Wiedererkennung</strong>
-                <span>Die TV-Erwähnung im Curry-Kontext kann dezent als Vertrauenssignal und Gesprächsanlass eingesetzt werden.</span>
+                <strong>Bestellsystem integriert</strong>
+                <span>Die Bestellung läuft direkt auf der Seite und ist bereits so aufgebaut, dass eine spätere SumUp-Anbindung sauber vorbereitet werden kann.</span>
               </div>
             </div>
           </div>
@@ -1017,27 +1379,27 @@
               <div class="feature-card">
                 <strong>Original Thai-Fokus</strong>
                 <p>
-                  Die Kommunikation soll nicht austauschbar klingen. Deshalb stehen
-                  Originalität, Gewürze, Kräuter, Currys, Suppen und Wok-Klassiker
-                  im Zentrum der Seite.
+                  Im Zentrum stehen Currys, Wokgerichte, Reis- und Nudelklassiker,
+                  Thai-Salate und aromatische Vorspeisen – klar gegliedert und
+                  sofort bestellbar.
                 </p>
               </div>
 
               <div class="feature-card">
-                <strong>Stilvoller Look mit Pattern-Hintergrund</strong>
+                <strong>Benutzerfreundliches Ordering</strong>
                 <p>
-                  Der neue helle Hintergrund mit wiederholtem Elefantenmuster sorgt
-                  für einen klaren Chang-Thai-Wiedererkennungswert, ohne die Inhalte
-                  zu überladen. Die Cards bleiben hell, edel und gut lesbar.
+                  Gäste können nach Kategorien filtern, Gerichte suchen,
+                  Abholung oder Lieferung auswählen und den Warenkorb direkt
+                  auf derselben Seite verwalten.
                 </p>
               </div>
 
               <div class="feature-card">
-                <strong>Klar für GitHub nutzbar</strong>
+                <strong>SumUp-ready</strong>
                 <p>
-                  Einfache One-Page-Struktur, sauberes HTML/CSS, keine Abhängigkeiten
-                  außer Google Fonts. Du kannst die Datei direkt als <code>index.html</code>
-                  hochladen.
+                  Das Checkout-Modul ist bewusst so aufgebaut, dass du später
+                  nur noch den Demo-Button gegen einen echten SumUp-Checkout
+                  oder eine API-Anbindung austauschen musst.
                 </p>
               </div>
             </div>
@@ -1054,9 +1416,8 @@
             <h2>Thai-Klassiker, die sofort Lust machen</h2>
           </div>
           <p>
-            Die öffentlich beschriebenen Highlights reichen von Fingerfood und
-            Suppen bis zu Currys, Nudelgerichten und vegetarischen Varianten –
-            genau diese Vielfalt sollte die Website visuell und textlich transportieren.
+            Von Fingerfood und Thai-Salaten bis hin zu Currys, Reis- und Nudelgerichten:
+            Die Karte ist vielseitig, klar strukturiert und für schnelle Bestellungen optimiert.
           </p>
         </div>
 
@@ -1065,39 +1426,35 @@
             <span class="menu-kicker">Fingerfood</span>
             <h3>Perfekt zum Einstieg</h3>
             <p>
-              Frittierte Thai-Frühlingsrollen, Gyoza, knusprige Garnelen und
-              weitere Vorspeisen sorgen für einen starken ersten Eindruck und
-              eignen sich ideal zum Teilen.
+              Frühlingsrollen, Gyoza, Hähnchenspieße, Garnelen und weitere Vorspeisen
+              sorgen für einen starken Start und eignen sich ideal zum Teilen.
             </p>
           </article>
 
           <article class="menu-card">
-            <span class="menu-kicker">Suppen</span>
-            <h3>Tom Yam & Tom Kha</h3>
+            <span class="menu-kicker">Salate & Suppen</span>
+            <h3>Frisch, würzig, typisch Thai</h3>
             <p>
-              Aromatische Suppen mit Zitronengras, Kokosmilch, Thai-Kräutern,
-              Gemüse oder Huhn stehen für Tiefe, Frische und einen klassischen
-              Einstieg in die Thai-Küche.
+              Papayasalat, Glasnudelsalat und aromatische Thai-Suppen bringen
+              Frische, Schärfe und Kräuternoten direkt auf die Karte.
             </p>
           </article>
 
           <article class="menu-card">
             <span class="menu-kicker">Currys</span>
-            <h3>Grün, Rot, Massaman</h3>
+            <h3>Grün, Rot, Panaeng, Massaman</h3>
             <p>
-              Grüne und rote Currys sowie Massaman mit Kokosmilch, Gemüse,
-              Basilikum, Kartoffeln, Erdnüssen und verschiedenen Proteinoptionen
-              bilden das Herzstück des Angebots.
+              Die Curry-Linie ist ein Herzstück der Karte: mit Huhn, Rind, Ente,
+              Garnelen, Meeresfrüchten, vegetarisch oder mit Tofu.
             </p>
           </article>
 
           <article class="menu-card">
             <span class="menu-kicker">Wok & Nudeln</span>
-            <h3>Pad Thai, Bami & mehr</h3>
+            <h3>Bami, Pad Thai & Phad Sie Lew</h3>
             <p>
-              Gebratene Eiernudeln, Reisnudeln und klassische Thai-Wokgerichte
-              geben der Karte Tempo, Vielfalt und genau die Gerichte, nach denen
-              Gäste häufig gezielt suchen.
+              Gebratene Nudeln, Reisgerichte und kräftige Wokklassiker sind
+              ideal für Gäste, die schnell bestellen und genau wissen, worauf sie Lust haben.
             </p>
           </article>
         </div>
@@ -1146,9 +1503,9 @@
           </h2>
 
           <p>
-            Die Seite ist bewusst so aufgebaut, dass Gäste schnell Vertrauen fassen
-            und ohne Umwege handeln können – ob spontaner Restaurantbesuch,
-            telefonische Anfrage oder direkte Online-Bestellung.
+            Die Seite ist jetzt so aufgebaut, dass Gäste direkt handeln können:
+            spontan vorbeikommen, telefonisch anfragen oder sofort online in das
+            integrierte Bestellsystem springen.
           </p>
 
           <div class="contact-grid">
@@ -1174,28 +1531,140 @@
           </div>
         </div>
 
-        <aside class="order-panel">
+        <aside class="order-mini-card">
           <span class="eyebrow" style="margin-bottom:10px;">Jetzt loslegen</span>
-          <h3>Bestellung mit einem Klick</h3>
+          <h3>Eigenes Bestellsystem statt externer Weiterleitung</h3>
           <p>
-            Ideal für Gäste, die Chang Thai schon kennen – und genauso stark für
-            neue Besucher, die online sofort sehen sollen: Das ist nicht irgendein
-            Thai-Laden, sondern ein Spot mit Atmosphäre und Substanz.
+            Gäste bleiben direkt auf deiner Seite, finden schneller die passenden
+            Gerichte und bauen ihren Warenkorb ohne Umweg auf.
           </p>
 
           <div class="order-highlights">
-            <span>Direkter Einstieg in Lieferung & Abholung</span>
-            <span>Klare Positionierung statt überladener Standardseite</span>
-            <span>Luxuriöser Look, aber trotzdem übersichtlich</span>
+            <span>Kategorien, Suche und Warenkorb direkt integriert</span>
+            <span>Abholung und Lieferung im selben Flow</span>
+            <span>Technisch vorbereitet für spätere SumUp-Anbindung</span>
+          </div>
+
+          <div class="pill-row" style="margin-bottom:18px;">
+            <span class="pill">Direkt auf der Seite</span>
+            <span class="pill">Mobilfreundlich</span>
+            <span class="pill">SumUp-ready</span>
           </div>
 
           <div class="hero-actions">
-            <a class="btn btn-primary" href="https://changthai.koeln/lieferservice/" target="_blank" rel="noopener noreferrer">Zum Lieferservice</a>
-            <a class="btn btn-secondary" href="https://www.instagram.com/changthai.koeln/" target="_blank" rel="noopener noreferrer" style="color:#6a511f; border-color:rgba(184,128,20,.18); background:rgba(255,255,255,.56);">
+            <a class="btn btn-primary" href="#bestellen">Zum Bestellsystem</a>
+            <a
+              class="btn"
+              href="https://www.instagram.com/changthai.koeln/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="background:rgba(255,255,255,.56); color:#6a511f; border:1px solid rgba(184,128,20,.18);"
+            >
               Instagram ansehen
             </a>
           </div>
         </aside>
+      </div>
+    </section>
+
+    <section id="bestellen">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Bestellsystem</span>
+            <h2>Online bestellen – direkt bei Chang Thai</h2>
+          </div>
+          <p>
+            Wähle Kategorie, finde dein Gericht, lege es in den Warenkorb und
+            bereite die spätere Checkout-Anbindung an SumUp bereits jetzt strukturiert vor.
+          </p>
+        </div>
+
+        <div class="order-shell">
+          <div class="order-top">
+            <div class="order-top-left">
+              <span class="eyebrow">Bestellung starten</span>
+              <h3>Benutzerfreundlich, klar und später erweiterbar</h3>
+              <p>
+                Das Modul ist für echte Gäste gedacht: schnelle Suche, klare Kategorien,
+                übersichtlicher Warenkorb und saubere Übergabe an einen späteren Bezahlprozess.
+              </p>
+
+              <div class="fulfillment-switch" style="margin-top:20px;">
+                <button class="switch-btn active" id="pickupBtn" type="button">Abholung</button>
+                <button class="switch-btn" id="deliveryBtn" type="button">Lieferung</button>
+              </div>
+            </div>
+
+            <div class="order-top-right">
+              <label class="info-label" for="menuSearch" style="margin:0;">Gerichte suchen</label>
+              <div class="search-wrap">
+                <input
+                  id="menuSearch"
+                  class="search-input"
+                  type="text"
+                  placeholder="z. B. Pad Thai, Gyoza, Massaman, Garnelen …"
+                />
+              </div>
+              <p>
+                Tipp: Gäste finden damit besonders schnell Klassiker wie Currys,
+                gebratene Nudeln, Salate und Vorspeisen.
+              </p>
+            </div>
+          </div>
+
+          <div class="category-tabs" id="categoryTabs"></div>
+
+          <div class="order-layout">
+            <div class="menu-list" id="menuList"></div>
+
+            <aside class="checkout-card">
+              <span class="eyebrow">Warenkorb</span>
+              <h3>Deine Auswahl</h3>
+              <p id="fulfillmentLabel">Bestellart: Abholung</p>
+
+              <div class="cart-list" id="cartList"></div>
+
+              <div class="cart-summary">
+                <div class="summary-row">
+                  <span>Zwischensumme</span>
+                  <span id="subtotal">0,00 €</span>
+                </div>
+                <div class="summary-row">
+                  <span>Liefer-/Servicehinweis</span>
+                  <span id="serviceHint">0,00 €</span>
+                </div>
+                <div class="summary-row total">
+                  <span>Gesamt</span>
+                  <span id="total">0,00 €</span>
+                </div>
+              </div>
+
+              <div class="order-form">
+                <input class="field" id="customerName" type="text" placeholder="Name" />
+                <input class="field" id="customerPhone" type="tel" placeholder="Telefonnummer" />
+                <input class="field" id="customerStreet" type="text" placeholder="Straße / Hausnummer (bei Lieferung)" />
+                <textarea class="field" id="customerNote" placeholder="Anmerkungen zur Bestellung"></textarea>
+
+                <button class="btn btn-primary" id="checkoutBtn" type="button">Bestellung vorbereiten</button>
+                <button
+                  class="btn"
+                  id="whatsAppBtn"
+                  type="button"
+                  style="background:rgba(255,255,255,.72); color:#6a511f; border:1px solid rgba(184,128,20,.16);"
+                >
+                  Bestellung per WhatsApp senden
+                </button>
+              </div>
+
+              <div class="checkout-note">
+                Aktuell ist dies ein sauberes Frontend-Bestellsystem. Für die echte
+                Zahlung kannst du später den Button „Bestellung vorbereiten“ mit
+                SumUp Checkout, SumUp API oder einem Zahlungslink verbinden.
+              </div>
+            </aside>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -1205,17 +1674,639 @@
       <div class="footer-card">
         <small>
           © Chang Thai Köln – stilvolle Original Thaiküche in Köln-Sülz.<br />
-          Diese Landingpage ist als hochwertige GitHub-HTML-Onepager-Struktur aufgebaut.
+          Diese Landingpage ist als hochwertige GitHub-HTML-Onepager-Struktur mit integriertem Bestellsystem aufgebaut.
         </small>
 
         <div class="footer-links">
+          <a href="#bestellen">Bestellen</a>
           <a href="https://changthai.koeln/" target="_blank" rel="noopener noreferrer">Website</a>
-          <a href="https://changthai.koeln/lieferservice/" target="_blank" rel="noopener noreferrer">Bestellen</a>
           <a href="tel:+4922129966093">Anrufen</a>
         </div>
       </div>
     </div>
   </footer>
 
+  <script>
+    const variantPriceMap = {
+      "Hühnerfleisch": 9.0,
+      "knusprigem Schweinebauch": 11.0,
+      "Schweinefleisch": 11.0,
+      "Rindfleisch": 10.0,
+      "knuspriger Ente": 11.0,
+      "Fischfilet": 9.0,
+      "Fisch": 9.0,
+      "Tintenfisch": 9.0,
+      "Garnelen": 10.0,
+      "Meeresfrüchten": 10.0,
+      "Meeresfrüchte": 10.0,
+      "vegetarisch": 8.0,
+      "vegetarisch mit Tofu": 9.0,
+      "gebackenem Hähnchenfleisch": 10.0,
+      "gebackenem Hähnchen": 10.0,
+      "gehacktem Hühnerfleisch": 9.0,
+      "gehacktem Rindfleisch": 11.0
+    };
+
+    const menuData = [
+      {
+        category: "Fingerfood",
+        items: [
+          {
+            id: "noey-tord",
+            name: "Noey Tord",
+            desc: "Frittierte Käsebällchen mit Süß-Sauer-Sauce.",
+            price: 6.00,
+            tags: ["starter", "vegetarisch"]
+          },
+          {
+            id: "popia-tord-dr",
+            name: "Popia Tord Dr",
+            desc: "Frittierte Thai-Frühlingsrollen mit Gemüse und Süß-Sauer-Sauce.",
+            price: 6.00,
+            tags: ["starter", "vegetarisch"]
+          },
+          {
+            id: "sate-gai",
+            name: "Sate Gai",
+            desc: "Hähnchenspieße mit Erdnusssauce.",
+            price: 6.50,
+            tags: ["starter", "huhn"]
+          },
+          {
+            id: "gyoza",
+            name: "Gyoza",
+            desc: "Frittierte chinesische Teigtaschen mit Hühnerfleisch und Gemüse.",
+            price: 6.50,
+            tags: ["starter", "huhn"]
+          },
+          {
+            id: "thung-thong",
+            name: "Thung Thong",
+            desc: "Frittierte Teigtaschen mit gehacktem Hühnerfleisch und Zwiebeln.",
+            price: 5.50,
+            tags: ["starter", "huhn"]
+          },
+          {
+            id: "gung-tord",
+            name: "Gung Tord",
+            desc: "Frittierte Garnelen mit Süß-Sauer-Sauce.",
+            price: 6.00,
+            tags: ["starter", "garnelen"]
+          }
+        ]
+      },
+      {
+        category: "Salate",
+        items: [
+          {
+            id: "som-tam-thai",
+            name: "Som Tam Thai",
+            desc: "Grüner Papayasalat mit Möhren und Erdnüssen.",
+            price: 7.00,
+            tags: ["salat", "frisch"]
+          },
+          {
+            id: "yam-nuea",
+            name: "Yam Nuea",
+            desc: "Rindfleischsalat mit Gemüse, Zwiebeln und Thai-Kräutern.",
+            price: 7.00,
+            tags: ["salat", "rind"]
+          },
+          {
+            id: "yam-won-sen",
+            name: "Yam Won Sen",
+            desc: "Glasnudelsalat mit Hühnerfleisch, Gemüse, Sellerie und Thai-Kräutern.",
+            price: 7.00,
+            tags: ["salat", "huhn"]
+          },
+          {
+            id: "yam-pla-muek",
+            name: "Yam Pla Muek",
+            desc: "Tintenfischsalat mit Gemüse, Sellerie und Thai-Kräutern.",
+            price: 7.00,
+            tags: ["salat", "tintenfisch"]
+          },
+          {
+            id: "yam-tha-lay",
+            name: "Yam Tha-Lay",
+            desc: "Thai-Meeresfrüchtesalat mit Gemüse und frischen Kräutern.",
+            price: 7.00,
+            tags: ["salat", "meeresfrüchte"]
+          },
+          {
+            id: "pla-gung",
+            name: "Pla Gung",
+            desc: "Würziger Garnelensalat nach Thai-Art.",
+            price: 6.00,
+            tags: ["salat", "garnelen"]
+          }
+        ]
+      },
+      {
+        category: "Für den kleinen Hunger",
+        items: [
+          {
+            id: "portion-gebratene-eiernudeln",
+            name: "Portion gebratene Eiernudeln",
+            desc: "Kleine Portion als Beilage oder Snack.",
+            price: 5.00,
+            tags: ["beilage"]
+          },
+          {
+            id: "portion-gebratene-nudeln-ei",
+            name: "Portion gebratene Nudeln mit Ei",
+            desc: "Schnelle kleine Portion für zwischendurch.",
+            price: 5.00,
+            tags: ["beilage"]
+          },
+          {
+            id: "portion-reis-ei",
+            name: "Portion Reis mit Ei",
+            desc: "Klassische kleine Beilage.",
+            price: 5.00,
+            tags: ["beilage"]
+          }
+        ]
+      },
+      {
+        category: "Reis & Nudelgerichte",
+        items: [
+          {
+            id: "bami-phad-vegetarisch",
+            name: "Bami Phad – vegetarisch",
+            desc: "Gebratene Eiernudeln mit frischem Gemüse.",
+            price: 8.00,
+            tags: ["nudeln", "vegetarisch"]
+          },
+          {
+            id: "bami-phad-tofu",
+            name: "Bami Phad – vegetarisch mit Tofu",
+            desc: "Gebratene Eiernudeln mit Gemüse und Tofu.",
+            price: 9.00,
+            tags: ["nudeln", "tofu"]
+          },
+          {
+            id: "bami-phad-tintenfisch",
+            name: "Bami Phad mit Tintenfisch",
+            desc: "Gebratene Eiernudeln mit Gemüse und Tintenfisch.",
+            price: 9.00,
+            tags: ["nudeln", "tintenfisch"]
+          },
+          {
+            id: "bami-phad-garnelen",
+            name: "Bami Phad mit Garnelen",
+            desc: "Gebratene Eiernudeln mit Gemüse und Garnelen.",
+            price: 10.00,
+            tags: ["nudeln", "garnelen"]
+          },
+          {
+            id: "bami-phad-meeresfruechte",
+            name: "Bami Phad mit Meeresfrüchten",
+            desc: "Gebratene Eiernudeln mit Gemüse und Meeresfrüchten.",
+            price: 10.00,
+            tags: ["nudeln", "meeresfrüchte"]
+          },
+          {
+            id: "bami-phad-gebackenes-huhn",
+            name: "Bami Phad mit gebackenem Hähnchenfleisch",
+            desc: "Gebratene Eiernudeln mit Gemüse und knusprigem Hähnchen.",
+            price: 10.00,
+            tags: ["nudeln", "huhn"]
+          },
+          {
+            id: "phad-sie-lew-huhn",
+            name: "Phad Sie Lew mit Hühnerfleisch",
+            desc: "Gebratene Reisnudeln mit Gemüse und Ei.",
+            price: 9.00,
+            tags: ["reisnudeln", "huhn"]
+          },
+          {
+            id: "phad-sie-lew-rind",
+            name: "Phad Sie Lew mit Rindfleisch",
+            desc: "Gebratene Reisnudeln mit frischem Gemüse und Ei.",
+            price: 10.00,
+            tags: ["reisnudeln", "rind"]
+          },
+          {
+            id: "phad-sie-lew-ente",
+            name: "Phad Sie Lew mit knuspriger Ente",
+            desc: "Gebratene Reisnudeln mit Gemüse und knuspriger Ente.",
+            price: 11.00,
+            tags: ["reisnudeln", "ente"]
+          },
+          {
+            id: "phad-sie-lew-fisch",
+            name: "Phad Sie Lew mit Fischfilet",
+            desc: "Gebratene Reisnudeln mit Gemüse und Ei.",
+            price: 9.00,
+            tags: ["reisnudeln", "fisch"]
+          },
+          {
+            id: "phad-sie-lew-tintenfisch",
+            name: "Phad Sie Lew mit Tintenfisch",
+            desc: "Gebratene Reisnudeln mit Gemüse und Ei.",
+            price: 9.00,
+            tags: ["reisnudeln", "tintenfisch"]
+          },
+          {
+            id: "phad-sie-lew-garnelen",
+            name: "Phad Sie Lew mit Garnelen",
+            desc: "Gebratene Reisnudeln mit Gemüse und Ei.",
+            price: 9.00,
+            tags: ["reisnudeln", "garnelen"]
+          },
+          {
+            id: "phad-sie-lew-meeresfruechte",
+            name: "Phad Sie Lew mit Meeresfrüchten",
+            desc: "Gebratene Reisnudeln mit Gemüse und Ei.",
+            price: 10.00,
+            tags: ["reisnudeln", "meeresfrüchte"]
+          },
+          {
+            id: "phad-sie-lew-vegetarisch",
+            name: "Phad Sie Lew – vegetarisch",
+            desc: "Gebratene Reisnudeln mit Gemüse und Ei.",
+            price: 8.00,
+            tags: ["reisnudeln", "vegetarisch"]
+          },
+          {
+            id: "phad-sie-lew-tofu",
+            name: "Phad Sie Lew – vegetarisch mit Tofu",
+            desc: "Gebratene Reisnudeln mit Gemüse, Ei und Tofu.",
+            price: 9.00,
+            tags: ["reisnudeln", "tofu"]
+          }
+        ]
+      },
+      {
+        category: "Currys & Hauptgerichte mit Reis",
+        items: []
+      },
+      {
+        category: "Spezialitäten",
+        items: [
+          {
+            id: "gaeng-kari-gai",
+            name: "Gaeng Kari Gai",
+            desc: "Gelbes Thai-Curry mit Hühnerfleisch.",
+            price: 9.00,
+            tags: ["curry", "huhn"]
+          },
+          {
+            id: "gai-pad-himapan",
+            name: "Gai Pad Himapan",
+            desc: "Hühnerfleisch mit Cashewkernen nach Thai-Art.",
+            price: 9.00,
+            tags: ["wok", "huhn"]
+          },
+          {
+            id: "chuchi-plaa",
+            name: "Chuchi Plaa",
+            desc: "Fischspezialität mit roter Curry-Basis.",
+            price: 9.00,
+            tags: ["fisch", "spezial"]
+          },
+          {
+            id: "laab-ped",
+            name: "Laab Ped",
+            desc: "Würzig angemachte Entenspezialität nach Thai-Art.",
+            price: 9.00,
+            tags: ["ente", "spezial"]
+          }
+        ]
+      }
+    ];
+
+    const curryBaseDishes = [
+      {
+        prefix: "Gaeng Kiawwaan",
+        desc: "Grünes Curry mit Kokosmilch, Gemüse und Thai-Basilikum."
+      },
+      {
+        prefix: "Gaeng Panaeng",
+        desc: "Panaeng-Curry mit Kokosmilch und feiner Thai-Würze."
+      },
+      {
+        prefix: "Gaeng Massaman",
+        desc: "Massaman-Curry mit Kartoffeln, Erdnüssen und Kokosmilch."
+      },
+      {
+        prefix: "Gaeng Phed",
+        desc: "Rotes Curry mit Kokosmilch, Gemüse und Thai-Kräutern."
+      },
+      {
+        prefix: "Phad Krapao",
+        desc: "Wokgericht mit Thai-Basilikum und kräftiger Würze."
+      },
+      {
+        prefix: "Phad Priew Wan",
+        desc: "Süß-sauer nach Thai-Art mit Gemüse."
+      },
+      {
+        prefix: "Phad Pak",
+        desc: "Gebratenes Gemüse nach Thai-Art mit Reis."
+      },
+      {
+        prefix: "Phad Khing",
+        desc: "Ingwergericht mit Gemüse und Reis."
+      },
+      {
+        prefix: "Phad Prig",
+        desc: "Würziges Chili-Gericht mit Gemüse und Reis."
+      },
+      {
+        prefix: "Phad Kratiam Prikthai",
+        desc: "Knoblauch-Pfeffer-Gericht mit Reis."
+      },
+      {
+        prefix: "Phad Nam Prik Pao",
+        desc: "Gericht mit Thai-Chilipaste und Reis."
+      },
+      {
+        prefix: "Rad Prik Sam Rod",
+        desc: "Süß-scharfes Thai-Gericht mit Reis."
+      }
+    ];
+
+    const curryVariants = [
+      { suffix: "mit Hühnerfleisch", priceKey: "Hühnerfleisch", tags: ["reis", "huhn"] },
+      { suffix: "mit knusprigem Schweinebauch", priceKey: "knusprigem Schweinebauch", tags: ["reis", "schwein"] },
+      { suffix: "mit Rindfleisch", priceKey: "Rindfleisch", tags: ["reis", "rind"] },
+      { suffix: "mit knuspriger Ente", priceKey: "knuspriger Ente", tags: ["reis", "ente"] },
+      { suffix: "mit Fischfilet", priceKey: "Fischfilet", tags: ["reis", "fisch"] },
+      { suffix: "mit Tintenfisch", priceKey: "Tintenfisch", tags: ["reis", "tintenfisch"] },
+      { suffix: "mit Garnelen", priceKey: "Garnelen", tags: ["reis", "garnelen"] },
+      { suffix: "mit Meeresfrüchten", priceKey: "Meeresfrüchten", tags: ["reis", "meeresfrüchte"] },
+      { suffix: "– vegetarisch", priceKey: "vegetarisch", tags: ["reis", "vegetarisch"] },
+      { suffix: "mit gebackenem Hähnchenfleisch", priceKey: "gebackenem Hähnchenfleisch", tags: ["reis", "huhn"] },
+      { suffix: "– vegetarisch mit Tofu", priceKey: "vegetarisch mit Tofu", tags: ["reis", "tofu"] }
+    ];
+
+    curryBaseDishes.forEach((dish, dishIndex) => {
+      curryVariants.forEach((variant, variantIndex) => {
+        const id = `${dish.prefix.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${variantIndex}`;
+        menuData.find(c => c.category === "Currys & Hauptgerichte mit Reis").items.push({
+          id,
+          name: `${dish.prefix} ${variant.suffix}`,
+          desc: dish.desc,
+          price: variantPriceMap[variant.priceKey],
+          tags: variant.tags
+        });
+      });
+    });
+
+    menuData.find(c => c.category === "Currys & Hauptgerichte mit Reis").items.push(
+      {
+        id: "phad-krapao-thai-art-huhn",
+        name: "Phad Krapao (Thai Art) mit gehacktem Hühnerfleisch",
+        desc: "Authentische Thai-Art mit kräftiger Würze und Reis.",
+        price: 9.00,
+        tags: ["reis", "huhn"]
+      },
+      {
+        id: "phad-krapao-thai-art-rind",
+        name: "Phad Krapao (Thai Art) mit gehacktem Rindfleisch",
+        desc: "Authentische Thai-Art mit kräftiger Würze und Reis.",
+        price: 11.00,
+        tags: ["reis", "rind"]
+      }
+    );
+
+    let currentCategory = "Alle";
+    let searchValue = "";
+    let fulfillment = "Abholung";
+    let cart = [];
+
+    const menuList = document.getElementById("menuList");
+    const cartList = document.getElementById("cartList");
+    const subtotalEl = document.getElementById("subtotal");
+    const totalEl = document.getElementById("total");
+    const serviceHintEl = document.getElementById("serviceHint");
+    const fulfillmentLabelEl = document.getElementById("fulfillmentLabel");
+    const categoryTabs = document.getElementById("categoryTabs");
+    const menuSearch = document.getElementById("menuSearch");
+    const pickupBtn = document.getElementById("pickupBtn");
+    const deliveryBtn = document.getElementById("deliveryBtn");
+    const checkoutBtn = document.getElementById("checkoutBtn");
+    const whatsAppBtn = document.getElementById("whatsAppBtn");
+
+    const allItems = menuData.flatMap(section =>
+      section.items.map(item => ({ ...item, category: section.category }))
+    );
+
+    function euro(value){
+      return value.toLocaleString("de-DE", { style: "currency", currency: "EUR" });
+    }
+
+    function renderCategoryTabs(){
+      const categories = ["Alle", ...menuData.map(section => section.category)];
+      categoryTabs.innerHTML = categories.map(cat => `
+        <button class="category-tab ${cat === currentCategory ? "active" : ""}" data-category="${cat}" type="button">
+          ${cat}
+        </button>
+      `).join("");
+
+      categoryTabs.querySelectorAll(".category-tab").forEach(btn => {
+        btn.addEventListener("click", () => {
+          currentCategory = btn.dataset.category;
+          renderCategoryTabs();
+          renderMenu();
+        });
+      });
+    }
+
+    function renderMenu(){
+      const filtered = allItems.filter(item => {
+        const matchesCategory = currentCategory === "Alle" || item.category === currentCategory;
+        const q = searchValue.trim().toLowerCase();
+        const matchesSearch = !q ||
+          item.name.toLowerCase().includes(q) ||
+          item.desc.toLowerCase().includes(q) ||
+          item.tags.join(" ").toLowerCase().includes(q) ||
+          item.category.toLowerCase().includes(q);
+        return matchesCategory && matchesSearch;
+      });
+
+      if(!filtered.length){
+        menuList.innerHTML = `
+          <div class="empty-state">
+            Keine Gerichte gefunden. Versuche eine andere Kategorie oder einen anderen Suchbegriff.
+          </div>
+        `;
+        return;
+      }
+
+      menuList.innerHTML = filtered.map(item => `
+        <article class="menu-item">
+          <div>
+            <h4>${item.name}</h4>
+            <p>${item.desc}</p>
+            <div class="menu-meta">
+              <span class="tag">${item.category}</span>
+              ${item.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join("")}
+            </div>
+          </div>
+          <div class="menu-buy">
+            <div class="price">${euro(item.price)}</div>
+            <button class="mini-btn" type="button" data-add="${item.id}">Hinzufügen</button>
+          </div>
+        </article>
+      `).join("");
+
+      menuList.querySelectorAll("[data-add]").forEach(btn => {
+        btn.addEventListener("click", () => addToCart(btn.dataset.add));
+      });
+    }
+
+    function addToCart(id){
+      const item = allItems.find(entry => entry.id === id);
+      if(!item) return;
+
+      const existing = cart.find(entry => entry.id === id);
+      if(existing){
+        existing.qty += 1;
+      } else {
+        cart.push({ ...item, qty: 1 });
+      }
+      renderCart();
+    }
+
+    function changeQty(id, delta){
+      const item = cart.find(entry => entry.id === id);
+      if(!item) return;
+      item.qty += delta;
+      if(item.qty <= 0){
+        cart = cart.filter(entry => entry.id !== id);
+      }
+      renderCart();
+    }
+
+    function renderCart(){
+      if(!cart.length){
+        cartList.innerHTML = `
+          <div class="empty-state" style="padding:18px;">
+            Noch nichts im Warenkorb. Wähle links ein Gericht aus.
+          </div>
+        `;
+      } else {
+        cartList.innerHTML = cart.map(item => `
+          <div class="cart-item">
+            <div class="cart-item-head">
+              <div class="cart-item-name">${item.name}</div>
+              <div class="price" style="font-size:1rem;">${euro(item.price * item.qty)}</div>
+            </div>
+            <div class="cart-controls">
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-minus="${item.id}">−</button>
+                <strong>${item.qty}</strong>
+                <button class="qty-btn" type="button" data-plus="${item.id}">+</button>
+              </div>
+              <span style="color:var(--muted); font-size:.92rem;">${euro(item.price)} / Stück</span>
+            </div>
+          </div>
+        `).join("");
+
+        cartList.querySelectorAll("[data-minus]").forEach(btn => {
+          btn.addEventListener("click", () => changeQty(btn.dataset.minus, -1));
+        });
+        cartList.querySelectorAll("[data-plus]").forEach(btn => {
+          btn.addEventListener("click", () => changeQty(btn.dataset.plus, 1));
+        });
+      }
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const service = fulfillment === "Lieferung" && subtotal > 0 ? 2.50 : 0;
+      const total = subtotal + service;
+
+      subtotalEl.textContent = euro(subtotal);
+      serviceHintEl.textContent = euro(service);
+      totalEl.textContent = euro(total);
+      fulfillmentLabelEl.textContent = `Bestellart: ${fulfillment}`;
+    }
+
+    function setFulfillment(mode){
+      fulfillment = mode;
+      pickupBtn.classList.toggle("active", mode === "Abholung");
+      deliveryBtn.classList.toggle("active", mode === "Lieferung");
+      renderCart();
+    }
+
+    pickupBtn.addEventListener("click", () => setFulfillment("Abholung"));
+    deliveryBtn.addEventListener("click", () => setFulfillment("Lieferung"));
+
+    menuSearch.addEventListener("input", (e) => {
+      searchValue = e.target.value;
+      renderMenu();
+    });
+
+    checkoutBtn.addEventListener("click", () => {
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const service = fulfillment === "Lieferung" && subtotal > 0 ? 2.50 : 0;
+      const total = subtotal + service;
+
+      if(!cart.length){
+        alert("Bitte füge zuerst mindestens ein Gericht zum Warenkorb hinzu.");
+        return;
+      }
+
+      const orderSummary = cart.map(item =>
+        `${item.qty}x ${item.name} – ${euro(item.price * item.qty)}`
+      ).join("\n");
+
+      const name = document.getElementById("customerName").value.trim() || "Kein Name angegeben";
+      const phone = document.getElementById("customerPhone").value.trim() || "Keine Telefonnummer angegeben";
+      const street = document.getElementById("customerStreet").value.trim() || "Keine Adresse angegeben";
+      const note = document.getElementById("customerNote").value.trim() || "Keine Notiz";
+
+      alert(
+        `Bestellung vorbereitet\n\n` +
+        `Art: ${fulfillment}\n` +
+        `Name: ${name}\n` +
+        `Telefon: ${phone}\n` +
+        `Adresse: ${street}\n` +
+        `Notiz: ${note}\n\n` +
+        `${orderSummary}\n\n` +
+        `Gesamt: ${euro(total)}\n\n` +
+        `Nächster Schritt: Diesen Button später mit SumUp Checkout verbinden.`
+      );
+    });
+
+    whatsAppBtn.addEventListener("click", () => {
+      if(!cart.length){
+        alert("Bitte füge zuerst mindestens ein Gericht zum Warenkorb hinzu.");
+        return;
+      }
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const service = fulfillment === "Lieferung" && subtotal > 0 ? 2.50 : 0;
+      const total = subtotal + service;
+
+      const name = document.getElementById("customerName").value.trim() || "Kein Name angegeben";
+      const phone = document.getElementById("customerPhone").value.trim() || "Keine Telefonnummer angegeben";
+      const street = document.getElementById("customerStreet").value.trim() || "Keine Adresse angegeben";
+      const note = document.getElementById("customerNote").value.trim() || "Keine Notiz";
+
+      const orderSummary = cart.map(item =>
+        `• ${item.qty}x ${item.name} – ${euro(item.price * item.qty)}`
+      ).join("%0A");
+
+      const message =
+        `Hallo Chang Thai,%0A%0A` +
+        `ich möchte gern bestellen.%0A` +
+        `Bestellart: ${fulfillment}%0A` +
+        `Name: ${encodeURIComponent(name)}%0A` +
+        `Telefon: ${encodeURIComponent(phone)}%0A` +
+        `Adresse: ${encodeURIComponent(street)}%0A` +
+        `Notiz: ${encodeURIComponent(note)}%0A%0A` +
+        `Bestellung:%0A${orderSummary}%0A%0A` +
+        `Gesamt: ${encodeURIComponent(euro(total))}`;
+
+      window.open(`https://wa.me/4922129966093?text=${message}`, "_blank");
+    });
+
+    renderCategoryTabs();
+    renderMenu();
+    renderCart();
+  </script>
 </body>
 </html>
