@@ -554,31 +554,47 @@
 
     .text-oval{
       width:min(100%, 1160px);
+      margin:0 auto;
       background:rgba(255,255,255,.90);
       border:1px solid rgba(184,128,20,.14);
       border-radius:999px;
-      padding:38px 54px;
+      padding:48px 72px;
       box-shadow:0 20px 50px rgba(84,60,12,.08);
       backdrop-filter:blur(6px);
-      text-align:left;
+      text-align:center;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
     }
 
     .text-oval.text-oval-lg{
-      padding:42px 58px;
+      padding:52px 78px;
+    }
+
+    .text-oval .eyebrow{
+      justify-content:center;
+      margin:0 auto 12px;
     }
 
     .text-oval h2{
-      margin:10px 0 16px;
+      margin:0 auto 18px;
+      max-width:980px;
       font-size:clamp(2.8rem, 5vw, 5.2rem);
       line-height:.92;
+      text-wrap:balance;
+      overflow-wrap:break-word;
+      word-break:normal;
     }
 
     .text-oval p{
       max-width:980px;
-      margin:0;
+      margin:0 auto;
       font-size:clamp(1.02rem, 1.5vw, 1.18rem);
       line-height:1.75;
       color:var(--muted);
+      text-wrap:pretty;
     }
 
     .story-grid{
@@ -1502,11 +1518,16 @@
       .text-oval.text-oval-lg{
         width:100%;
         border-radius:40px;
-        padding:24px;
+        padding:28px 24px;
       }
 
       .text-oval h2{
         font-size:clamp(2.1rem, 8vw, 3.4rem);
+        max-width:100%;
+      }
+
+      .text-oval p{
+        max-width:100%;
       }
     }
 
@@ -1567,8 +1588,18 @@
 
       .text-oval,
       .text-oval.text-oval-lg{
-        padding:20px 18px;
+        padding:22px 16px;
         border-radius:28px;
+      }
+
+      .text-oval h2{
+        font-size:clamp(2rem, 10vw, 2.9rem);
+        line-height:.96;
+      }
+
+      .text-oval .eyebrow{
+        font-size:.72rem;
+        letter-spacing:.16em;
       }
 
       .floating-order-btn{
